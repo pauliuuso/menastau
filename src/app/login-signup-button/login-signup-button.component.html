@@ -1,0 +1,14 @@
+<div class="login-wrapper">
+  <div *ngIf="!userService.isLogged">
+    <a routerLink="login">
+      <button class="btn btn-success mt-2 login-button">
+        Login
+      </button>
+    </a>
+    <a routerLink="sign-up" class="sign-up-button">
+      <p>Sign-up</p>
+    </a>
+  </div>
+  <p *ngIf="userService.isLogged">{{userService.name}}</p>
+</div>
+

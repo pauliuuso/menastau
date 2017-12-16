@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { UserService } from './user.service';
+import { ValidatorService } from './validator.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -11,6 +15,9 @@ import { ItemDashboardComponent } from './item-dashboard/item-dashboard.componen
 import { HomeComponent } from './home/home.component';
 import { ShopComponent } from './shop/shop.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LoginSignupButtonComponent } from './login-signup-button/login-signup-button.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes =
 [
@@ -21,6 +28,14 @@ const appRoutes: Routes =
   {
     path: 'shop/:type',
     component: ShopComponent
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
@@ -33,13 +48,21 @@ const appRoutes: Routes =
     MenuComponent,
     ItemDashboardComponent,
     HomeComponent,
-    ShopComponent
+    ShopComponent,
+    LoginSignupButtonComponent,
+    SignUpComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    UserService,
+    ValidatorService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

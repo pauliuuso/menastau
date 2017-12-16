@@ -1,0 +1,9 @@
+.login-wrapper
+{
+    float: right;
+}
+
+.login-button:hover
+{
+    cursor: pointer;
+}

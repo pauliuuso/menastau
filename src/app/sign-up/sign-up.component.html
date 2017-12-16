@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-4">
+        <h4>Sign up:</h4>
+        <form [formGroup]="form" (ngSubmit)="CreateUser()" class="mt-3" novalidate>
+          <div class="form-group"
+            [ngClass]="{
+              'has-danger': name.touched && name.invalid,
+              'has-success': name.touched && name.valid
+            }"
+          >
+            <label for="name">*Name:</label>
+            <input name="name" type="text" class="form-control" placeholder="Enter your name" formControlName="name" maxlength="20">
+            <div class="form-control-feedback" *ngIf="name.touched && name.invalid">
+              <p *ngIf="name.errors.required">This field is mandatory!</p>
+              <p *ngIf="name.errors.pattern">Name has unsupported symbols!</p>
+              <p *ngIf="name.errors.minlength || validatorService.MaxLength(name.value, 20)">Name has to have more than 1 and less than 20 characters!</p>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
