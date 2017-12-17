@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { UserService } from './user.service';
 import { ValidatorService } from './validator.service';
@@ -56,6 +57,7 @@ const appRoutes: Routes =
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

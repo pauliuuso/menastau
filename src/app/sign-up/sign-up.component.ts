@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidatorService } from '../validator.service';
+import { UserService } from '../user.service';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,6 +13,9 @@ import { ValidatorService } from '../validator.service';
 export class SignUpComponent implements OnInit {
 
   form: FormGroup;
+  errorMessage: string;
+  isUploading = false;
+  url = this.userService.baseUrl + "users/create";
 
   name: FormControl;
   surname: FormControl;
@@ -17,7 +23,7 @@ export class SignUpComponent implements OnInit {
   password1: FormControl;
   password2: FormControl;
 
-  constructor(public validatorService: ValidatorService) { }
+  constructor(public validatorService: ValidatorService, public userService: UserService, public http: Http, public router: Router) { }
 
   ngOnInit() 
   {
@@ -48,6 +54,52 @@ export class SignUpComponent implements OnInit {
 
   public CreateUser()
   {
+    this.errorMessage = "";
+
+    if(this.form.valid && this.validatorService.Match(this.password1.value, this.password2.value))
+    {
+      this.isUploading = true;
+
+      this.http.post
+      (
+        this.url,
+        {
+          name: this.name.value,
+          surname: this.surname.value,
+          password: this.password1.value,
+          email: this.email.value
+        }
+      )
+      .subscribe
+      (
+        data => 
+        {
+          this.isUploading = false;
+          const response = data.json();
+          if(response["message"] === "OK")
+          {
+            this.userService.name = response["name"];
+            this.userService.surname = response["surname"];
+            this.userService.email = response["email"];
+            this.userService.id = response["id"];
+            this.userService.token = response["token"];
+            this.userService.role = response["role"];
+
+            this.userService.isLogged = true;
+            this.router.navigate([""]);
+          }
+          else
+          {
+            this.errorMessage = response["message"];
+          }
+        },
+        error => 
+        {
+          this.isUploading = false;
+          this.errorMessage = error.message;
+        }
+      )
+    }
 
   }
 
