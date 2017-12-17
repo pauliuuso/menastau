@@ -1,6 +1,7 @@
 .login-wrapper
 {
     float: right;
+    text-align: right;
 }
 
 .login-button:hover
