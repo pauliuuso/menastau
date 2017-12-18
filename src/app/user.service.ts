@@ -12,6 +12,20 @@ export class UserService
   public role = "";
   public id = "";
 
+  public userRoles: IRoles =
+  {
+    user: "user",
+    artist: "artist",
+    admin: "admin"
+  }
+  
   constructor() { }
 
+}
+
+export interface IRoles
+{
+  user: string;
+  artist: string;
+  admin: string;
 }

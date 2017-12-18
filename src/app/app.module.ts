@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { AdminGuard } from './guards/admin.guard';
+import { ArtistGuard } from './guards/artist.guard';
+
 import { UserService } from './user.service';
 import { ValidatorService } from './validator.service';
 import { SharedService } from './shared.service';
@@ -20,6 +23,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginSignupButtonComponent } from './login-signup-button/login-signup-button.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { AddArtComponent } from './add-art/add-art.component';
 
 const appRoutes: Routes =
 [
@@ -38,6 +42,11 @@ const appRoutes: Routes =
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'add-art',
+    canActivate: [AdminGuard],
+    component: AddArtComponent
   }
 ];
 
@@ -53,7 +62,8 @@ const appRoutes: Routes =
     ShopComponent,
     LoginSignupButtonComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    AddArtComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +75,8 @@ const appRoutes: Routes =
     UserService,
     ValidatorService,
     SharedService,
+    AdminGuard,
+    ArtistGuard,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

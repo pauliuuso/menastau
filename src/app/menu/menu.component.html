@@ -1,6 +1,5 @@
 <p>Categories:</p>
 <ul class="art-menu">
-  <a routerLink="shop/Aqua"><li>Aqua</li></a>
-  <a routerLink="shop/Oil"><li>Oil</li></a>
-  <a routerLink="shop/Photography"><li>Photography</li></a>
+  <a *ngFor="let category of sharedService.categories" routerLink="shop/{{category.name}}"><li>{{category.name}}</li></a>
+  <a *ngIf="userService.role === userService.userRoles.admin" routerLink="add-art/"><li>Add new</li></a>
 </ul>
