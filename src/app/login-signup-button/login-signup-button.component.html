@@ -9,6 +9,6 @@
       <p>Sign-up</p>
     </a>
   </div>
-  <p *ngIf="userService.isLogged">{{userService.email}}</p>
+  <p *ngIf="userService.isLogged">{{sharedService.Decode(userService.email)}}</p>
 </div>
 

@@ -25,16 +25,16 @@ export class SignUpComponent implements OnInit {
 
   constructor(public validatorService: ValidatorService, public userService: UserService, public http: Http, public router: Router) { }
 
-  ngOnInit() 
+  ngOnInit()
   {
     this.CreateFormControls();
     this.CreateForm();
   }
 
-  public CreateFormControls() 
+  public CreateFormControls()
   {
-    this.name = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_-]*"), Validators.minLength(2), Validators.maxLength(20)]);
-    this.surname = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_-]*"), Validators.minLength(2), Validators.maxLength(50)]);
+    this.name = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_ -]*"), Validators.minLength(2), Validators.maxLength(20)]);
+    this.surname = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_ -]*"), Validators.minLength(2), Validators.maxLength(50)]);
     this.email = new FormControl('', [Validators.required, Validators.pattern("[^ @]*@[^ @]*"), Validators.minLength(2), Validators.maxLength(50)]);
     this.password1 = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_-]*"), Validators.minLength(4), Validators.maxLength(50)]);
     this.password2 = new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9_-]*"), Validators.minLength(4), Validators.maxLength(50)]);
@@ -49,12 +49,18 @@ export class SignUpComponent implements OnInit {
       email: this.email,
       password1: this.password1,
       password2: this.password2
-    })
+    });
   }
 
   public CreateUser()
   {
     this.errorMessage = "";
+
+    Object.keys(this.form.controls).forEach(field =>
+    {
+      const control = this.form.get(field);
+      control.markAsTouched({ onlySelf: true });
+    });
 
     if(this.form.valid && this.validatorService.Match(this.password1.value, this.password2.value))
     {
@@ -64,15 +70,15 @@ export class SignUpComponent implements OnInit {
       (
         this.url,
         {
-          name: this.name.value,
-          surname: this.surname.value,
+          name: encodeURI(this.name.value),
+          surname: encodeURI(this.surname.value),
           password: this.password1.value,
-          email: this.email.value
+          email: encodeURI(this.email.value)
         }
       )
       .subscribe
       (
-        data => 
+        data =>
         {
           this.isUploading = false;
           const response = data.json();
@@ -93,14 +99,13 @@ export class SignUpComponent implements OnInit {
             this.errorMessage = response["message"];
           }
         },
-        error => 
+        error =>
         {
           this.isUploading = false;
           this.errorMessage = error.message;
         }
-      )
+      );
     }
-
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-login-signup-button',
@@ -8,11 +9,11 @@ import { UserService } from '../user.service';
 })
 export class LoginSignupButtonComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, public sharedService: SharedService) { }
 
-  ngOnInit() 
+  ngOnInit()
   {
-    
+
   }
 
 }

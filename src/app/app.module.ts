@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 
 import { UserService } from './user.service';
 import { ValidatorService } from './validator.service';
+import { SharedService } from './shared.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -63,6 +64,7 @@ const appRoutes: Routes =
   providers: [
     UserService,
     ValidatorService,
+    SharedService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
