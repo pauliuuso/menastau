@@ -10,5 +10,6 @@
     </a>
   </div>
   <p *ngIf="userService.isLogged">{{sharedService.Decode(userService.email)}}</p>
+  <a href="#" *ngIf="userService.isLogged" (click)="userService.Logout()"><p>Logout</p></a>
 </div>
 

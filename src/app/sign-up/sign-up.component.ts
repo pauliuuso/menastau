@@ -84,14 +84,7 @@ export class SignUpComponent implements OnInit {
           const response = data.json();
           if(response["message"] === "OK")
           {
-            this.userService.name = response["name"];
-            this.userService.surname = response["surname"];
-            this.userService.email = response["email"];
-            this.userService.id = response["id"];
-            this.userService.token = response["token"];
-            this.userService.role = response["role"];
-
-            this.userService.isLogged = true;
+            this.userService.Login(response["name"], response["surname"], response["email"], response["id"], response["token"], response["role"]);
             this.router.navigate([""]);
           }
           else

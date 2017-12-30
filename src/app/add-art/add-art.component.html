@@ -20,8 +20,8 @@
 
         <div class="form-group"
         [ngClass]="{
-          'has-danger': title.touched && title.invalid,
-          'has-success': title.touched && title.valid
+          'has-danger': category.touched && category.invalid,
+          'has-success': category.touched && category.valid
         }"
         >
           <label for="category">Category:</label>
@@ -29,8 +29,56 @@
             <option value="0">--Select category--</option>
             <option *ngFor="let category of sharedService.categories; let index" value="category.value">{{category.name}}</option>
           </select>
-
         </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': author.touched && author.invalid,
+          'has-success': author.touched && author.valid
+        }"
+        >
+          <label for="author">Author:</label>
+          <input name ="author" type="text" class="form-control" placeholder="Author" formControlName="author" maxlength="50">
+          <div class="form-control-feedback" *ngIf="author.touched && author.invalid">
+            <p *ngIf="author.errors.required">This field is mandatory!</p>
+            <p *ngIf="author.errors.minlength || validatorService.MaxLength(author.value, 50)">Author has to have more than 1 and less than 50 characters!</p>
+          </div>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': price.touched && price.invalid,
+          'has-success': price.touched && price.valid
+        }"
+        >
+          <label for="price">Price:</label>
+          <div>
+            <input name="price" type="number" min="0" step="1" class="form-control col-11 shorter-input mr-2" placeholder="Price" formControlName="price">
+            <i class="fa fa-eur eur-icon mt-1" aria-hidden="true"></i>
+          </div>
+          <div class="form-control-feedback" *ngIf="price.touched && price.invalid">
+            <p *ngIf="price.errors.required">This field is mandatory!</p>
+            <p *ngIf="price.errors.pattern">Only numbers are allowed!</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="thumbnail">Thumbnail:</label>
+          <div>
+            <input name="thumbnail" type="file" accept="image/png, image/jpeg, image/jpg" (change)="ThumbnailChanged($event)" class="form-control">
+          </div>
+          <p class="text-danger">{{ thumbnailError }}</p>
+          <img [ngClass]="{'hidden-xs-up': !thumbnailSelected}" id="thumbnailFile" class="thumbnail-file col-12 col-sm-6 col-lg-4 p-0 m-0"/>
+        </div>
+
+        <div class="form-group">
+            <label for="picture">Picture:</label>
+            <div>
+              <input name="picture" type="file" accept="image/png, image/jpeg, image/jpg" (change)="PictureChanged($event)" class="form-control">
+            </div>
+            <p class="text-danger">{{ pictureError }}</p>
+            <img [ngClass]="{'hidden': !pictureSelected}" id="pictureFile" class="picture-file col-12 p-0 m-0"/>
+          </div>
 
 
         <button type="submit" class="btn btn-primary" [ngClass]="{'btn-disabled': isUploading, 'btn-primary': !isUploading}" [disabled]="isUploading">Submit</button>
