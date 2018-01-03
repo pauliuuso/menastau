@@ -14,11 +14,9 @@ import { SharedService } from './shared.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { BodyComponent } from './body/body.component';
 import { MenuComponent } from './menu/menu.component';
-import { ItemDashboardComponent } from './item-dashboard/item-dashboard.component';
 import { HomeComponent } from './home/home.component';
-import { ShopComponent } from './shop/shop.component';
+import { GalleryComponent } from './gallery/gallery.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoginSignupButtonComponent } from './login-signup-button/login-signup-button.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -29,11 +27,12 @@ const appRoutes: Routes =
 [
   {
     path: '',
-    component: HomeComponent
+    redirectTo: 'gallery/all',
+    pathMatch: 'full'
   },
   {
-    path: 'shop/:type',
-    component: ShopComponent
+    path: 'gallery/:type',
+    component: GalleryComponent
   },
   {
     path: 'sign-up',
@@ -55,11 +54,9 @@ const appRoutes: Routes =
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    BodyComponent,
     MenuComponent,
-    ItemDashboardComponent,
     HomeComponent,
-    ShopComponent,
+    GalleryComponent,
     LoginSignupButtonComponent,
     SignUpComponent,
     LoginComponent,
