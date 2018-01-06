@@ -27,8 +27,9 @@
           <label for="category">Category:</label>
           <select name="category" class="form-control" formControlName="category">
             <option value="0">--Select category--</option>
-            <option *ngFor="let category of sharedService.categories; let index" value="category.value">{{category.name}}</option>
+            <option *ngFor="let category of categories; let index" value="{{category.id}}">{{category.name}}</option>
           </select>
+          <p class="text-danger">{{categoriesError}}</p>
         </div>
 
         <div class="form-group"
@@ -38,10 +39,42 @@
         }"
         >
           <label for="author">Author:</label>
-          <input name ="author" type="text" class="form-control" placeholder="Author" formControlName="author" maxlength="50">
+          <select name="author" class="form-control" formControlName="author">
+            <option value="0">--Select author--</option>
+            <option *ngFor="let author of authors; let index" value="{{author.id}}">{{author.name}} {{author.surname}}</option>
+          </select>
           <div class="form-control-feedback" *ngIf="author.touched && author.invalid">
             <p *ngIf="author.errors.required">This field is mandatory!</p>
-            <p *ngIf="author.errors.minlength || validatorService.MaxLength(author.value, 50)">Author has to have more than 1 and less than 50 characters!</p>
+          </div>
+          <p class="text-danger">{{authorsError}}</p>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': description.touched && description.invalid,
+          'has-success': description.touched && description.valid
+        }"
+        >
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea name="description" class="form-control artshop-description" formControlName="description" placeholder="Description"></textarea>
+          </div>
+          <div class="form-control-feedback" *ngIf="description.touched && description.invalid">
+            <p *ngIf="validatorService.MaxLength(description.value, 1000)">Description has to be less than 1000 characters!</p>
+          </div>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': year.touched && year.invalid,
+          'has-success': year.touched && year.valid
+        }"
+        >
+          <label for="year">Year:</label>
+          <input name ="year" type="number" min="0" step="1" class="form-control" placeholder="Year" formControlName="year" maxlength="4">
+          <div class="form-control-feedback" *ngIf="year.touched && year.invalid">
+            <p *ngIf="year.errors.required">This field is mandatory!</p>
+            <p *ngIf="year.errors.pattern">Only numbers are allowed!</p>
           </div>
         </div>
 
@@ -81,8 +114,8 @@
           </div>
 
 
-        <button type="submit" class="btn btn-primary" [ngClass]="{'btn-disabled': isUploading, 'btn-primary': !isUploading}" [disabled]="isUploading">Submit</button>
-        <div [ngClass]="{'hidden-xs-up': !isUploading}"><i class="fa fa-spinner fa-spin"></i></div>
+        <button type="submit" class="btn btn-primary" [ngClass]="{'btn-disabled': uploading, 'btn-primary': !uploading}" [disabled]="uploading">Submit</button>
+        <div [ngClass]="{'hidden-xs-up': !uploading}"><i class="fa fa-spinner fa-spin"></i></div>
         <p class="text-danger mt-2">{{errorMessage}}</p>
 
       </form>

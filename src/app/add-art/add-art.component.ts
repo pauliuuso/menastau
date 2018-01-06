@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidatorService } from '../validator.service';
 import { UserService } from '../user.service';
-import { SharedService } from '../shared.service';
+import { SharedService, ICategory, IAuthor } from '../shared.service';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
+import "rxjs/add/operator/takeUntil";
+import { Subject } from "rxjs/Subject";
 
 @Component({
   selector: 'app-add-art',
   templateUrl: './add-art.component.html',
   styleUrls: ['./add-art.component.css']
 })
-export class AddArtComponent implements OnInit 
+export class AddArtComponent implements OnInit, OnDestroy
 {
   form: FormGroup;
   errorMessage: string;
-  isUploading = false;
+  uploading = false;
   thumbnailError: string;
   thumbnailSelected = false;
   pictureError: string;
@@ -24,24 +27,73 @@ export class AddArtComponent implements OnInit
   title: FormControl;
   category: FormControl;
   author: FormControl;
+  description: FormControl;
+  year: FormControl;
   price: FormControl;
+
+  public categories: ICategory[];
+  public categoriesError: string;
+  public authors: IAuthor[];
+  public authorsError: string;
+  private unsubscribe: Subject<void> = new Subject<void>();
 
   art: FormData;
 
-  constructor(public userService: UserService, public sharedService: SharedService, public validatorService: ValidatorService, public http: Http) { }
+  constructor(public userService: UserService, public sharedService: SharedService, public validatorService: ValidatorService, public http: Http, private router: Router) { }
 
   ngOnInit() 
   {
     this.CreateFormControls();
     this.CreateForm();
     this.art = new FormData();
+
+    this.category.disable();
+    this.author.disable();
+
+    this.sharedService.GetCategories()
+    .takeUntil(this.unsubscribe)
+    .subscribe
+    (
+      data =>
+      {
+        this.categories = data;
+        this.category.enable();
+      },
+      error =>
+      {
+        this.categoriesError = error.message;
+      }
+    );
+
+    this.sharedService.GetAuthors()
+    .takeUntil(this.unsubscribe)
+    .subscribe
+    (
+      data =>
+      {
+        this.authors = data;
+        this.author.enable();
+      },
+      error =>
+      {
+        this.authorsError = error.message;
+      }
+    );
+  }
+
+  ngOnDestroy()
+  {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   public CreateFormControls()
   {
     this.title = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]);
     this.category = new FormControl();
-    this.author = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]);
+    this.author = new FormControl('', [Validators.required]);
+    this.description = new FormControl('', [Validators.maxLength(1000)]);
+    this.year = new FormControl('', [Validators.required, Validators.pattern("^[0-9/.]*$")]);
     this.price = new FormControl('', [Validators.required, Validators.pattern("^[0-9/.]*$")]);
   }
 
@@ -52,9 +104,12 @@ export class AddArtComponent implements OnInit
       title: this.title,
       category: this.category,
       author: this.author,
+      description: this.description,
+      year: this.year,
       price: this.price
     });
   }
+
 
   public ThumbnailChanged(event)
   {
@@ -170,12 +225,41 @@ export class AddArtComponent implements OnInit
 
     if(this.form.valid)
     {
+      this.uploading = true;
+
       this.art.append("title", this.title.value);
       this.art.append("category", this.category.value);
-      this.art.append("author", this.author.value);
+      this.art.append("authorid", this.author.value);
+      this.art.append("description", this.description.value);
+      this.art.append("year", this.year.value)
       this.art.append("price", this.price.value);
+      this.art.append("token", this.userService.token);
+      this.art.append("userId", this.userService.id);
 
-      console.log(this.art.get("picture"));
+      this.http.post(this.url, this.art).subscribe
+      (
+        data => 
+        {
+          this.uploading = false;
+          const response = data.json();
+          if(response.message == "OK")
+          {
+            this.userService.token = response.token;
+            this.userService.WriteCookies();
+            this.router.navigate([""]);
+          }
+          else
+          {
+            this.errorMessage = "Something went wrong, try logging out and logging in";
+          }
+        },
+        error =>
+        {
+          this.uploading = false;
+          this.errorMessage = error.message;
+        }
+      );
+
     }
   }
 

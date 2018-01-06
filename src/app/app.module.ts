@@ -31,7 +31,19 @@ const appRoutes: Routes =
     pathMatch: 'full'
   },
   {
-    path: 'gallery/:type',
+    path: 'gallery',
+    component: GalleryComponent
+  },
+  {
+    path: 'gallery/:sorttype/:page',
+    component: GalleryComponent
+  },
+  {
+    path: 'gallery/:sorttype/:sortvar1/:page',
+    component: GalleryComponent
+  },
+  {
+    path: 'gallery/:sorttype/:sortvar1/:sortvar2/:page',
     component: GalleryComponent
   },
   {

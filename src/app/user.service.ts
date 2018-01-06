@@ -37,12 +37,7 @@ export class UserService
     this.token = token;
     this.role = role;
 
-    $.cookie("name", name);
-    $.cookie("surname", surname);
-    $.cookie("email", email);
-    $.cookie("id", id);
-    $.cookie("token", token);
-    $.cookie("role", role);
+    this.WriteCookies();
 
     this.isLogged = true;
   }
@@ -60,6 +55,16 @@ export class UserService
     }
 
     this.isLogged = false;
+  }
+
+  public WriteCookies()
+  {
+    $.cookie("name", this.name);
+    $.cookie("surname", this.surname);
+    $.cookie("email", this.email);
+    $.cookie("id", this.id);
+    $.cookie("token", this.token);
+    $.cookie("role", this.role);
   }
 
 }
