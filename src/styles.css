@@ -20,3 +20,8 @@ button:hover
 {
   font-size: 22px;
 }
+
+.visibility-hidden
+{
+  visibility: hidden;
+}

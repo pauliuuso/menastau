@@ -61,6 +61,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         data =>
         {
           this.works = data;
+          console.log(data);
         },
         error =>
         {

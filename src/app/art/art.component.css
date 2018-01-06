@@ -1,0 +1,18 @@
+.smaller-than-wrapper
+{
+    width: 100%;
+}
+
+.art-wrapper
+{
+    height: 350px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.art-image
+{
+    position: absolute;
+    margin: auto;
+}

@@ -1,0 +1,3 @@
+<div class="art-wrapper" (window:resize)="OnResize()">
+  <img #picture (load)="ImageLoaded()" class="p-0 m-0 art-image" [ngClass]="{'smaller-than-wrapper': smallerThanWrapper, 'visibility-hidden': loading, 'animated fadeIn': !loading}" src="{{thumbnailUrl}}"/>
+</div>

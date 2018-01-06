@@ -22,6 +22,7 @@ import { LoginSignupButtonComponent } from './login-signup-button/login-signup-b
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { AddArtComponent } from './add-art/add-art.component';
+import { ArtComponent } from './art/art.component';
 
 const appRoutes: Routes =
 [
@@ -72,7 +73,8 @@ const appRoutes: Routes =
     LoginSignupButtonComponent,
     SignUpComponent,
     LoginComponent,
-    AddArtComponent
+    AddArtComponent,
+    ArtComponent
   ],
   imports: [
     BrowserModule,

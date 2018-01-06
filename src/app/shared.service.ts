@@ -41,7 +41,7 @@ export class SharedService
     return this.http.post(this.getAllWorksUrl, {"page": page})
     .map
     (
-      data => data.json().authors as IWork[]
+      data => data.json().works as IWork[]
     );
   }
 
