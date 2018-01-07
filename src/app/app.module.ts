@@ -23,6 +23,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { AddArtComponent } from './add-art/add-art.component';
 import { ArtComponent } from './art/art.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { PictureAddedComponent } from './picture-added/picture-added.component';
 
 const appRoutes: Routes =
 [
@@ -55,7 +57,17 @@ const appRoutes: Routes =
     path: 'add-art',
     canActivate: [AdminGuard],
     component: AddArtComponent
-  }
+  },
+  {
+    path: 'admin-dashboard',
+    canActivate: [AdminGuard],
+    component: AdminDashboardComponent
+  },
+  {
+    path: 'picture-added',
+    canActivate: [AdminGuard],
+    component: PictureAddedComponent
+  },
 ];
 
 @NgModule({
@@ -70,7 +82,9 @@ const appRoutes: Routes =
     SignUpComponent,
     LoginComponent,
     AddArtComponent,
-    ArtComponent
+    ArtComponent,
+    AdminDashboardComponent,
+    PictureAddedComponent
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
   public works: IWork[];
   public totalWorks: number;
-  public totalPages: Array<number> = new Array<number>();
+  public totalPages: Array<number>;
 
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService, public sharedService: SharedService, public router: Router) { }
 
@@ -62,7 +62,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
       (
         data =>
         {
-          this.SetTotalPages(Math.floor(12 / 3));
           this.works = data;
           if(data[0])
           {

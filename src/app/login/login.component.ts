@@ -74,7 +74,14 @@ export class LoginComponent implements OnInit {
           if(response["message"] === "OK")
           {
             this.userService.Login(response["name"], response["surname"], response["email"], response["id"], response["token"], response["role"]);
-            this.router.navigate([""]);
+            if(response["role"] == this.userService.userRoles.admin)
+            {
+              this.router.navigate(["admin-dashboard"]);
+            }
+            else
+            {
+              this.router.navigate([""]);
+            }
           }
           else
           {

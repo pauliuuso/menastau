@@ -4,6 +4,11 @@
     text-align: right;
 }
 
+.login-wrapper a
+{
+    line-height: 5px;
+}
+
 .login-button:hover
 {
     cursor: pointer;

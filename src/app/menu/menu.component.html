@@ -3,5 +3,5 @@
   <a routerLink="artists"><li>Artists | </li></a>
   <a routerLink="about"><li>About | </li></a>
   <a routerLink="contacts"><li>Contacts </li></a>
-  <a *ngIf="userService.role === userService.userRoles.admin" routerLink="add-art"><li> | Add new</li></a>
+  <a *ngIf="userService.role === userService.userRoles.admin" routerLink="admin-dashboard"><li> | Admin</li></a>
 </ul>

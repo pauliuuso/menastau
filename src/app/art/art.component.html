@@ -1,7 +1,7 @@
 <div class="art-wrapper" (window:resize)="OnResize()">
   <img #picture (load)="ImageLoaded()" class="p-0 m-0 art-image" [ngClass]="{'smaller-than-wrapper': smallerThanWrapper, 'visibility-hidden': loading, 'animated fadeIn': !loading}" src="{{thumbnailUrl}}"/>
 </div>
-<div class="art-info pt-4 text-center">
-  <h3 class="text-uppercase">{{title}}</h3>
-  <p class="text-uppercase">{{author}}</p>
+<div class="art-info pt-4 text-center mb-5">
+  <h3 class="text-uppercase">{{sharedService.Decode(title)}}</h3>
+  <p class="text-uppercase">{{sharedService.Decode(author)}}</p>
 </div>

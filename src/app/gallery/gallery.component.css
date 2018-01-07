@@ -55,7 +55,7 @@
     cursor: pointer;
 }
 
-.art-pagination a:last-child
+.art-pagination a p:last-child
 {
     border-right: none;
 }

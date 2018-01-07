@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { SharedService } from '../shared.service';
 declare var $:any;
 
 @Component({
@@ -35,11 +36,10 @@ export class ArtComponent implements OnInit
   @Input()
   category: string;
 
-  constructor() { }
+  constructor(public sharedService: SharedService) { }
 
   ngOnInit()
   {
-    console.log(this.author);
     this.wrapperWidth = this.picture.nativeElement.parentNode.offsetWidth;
     this.wrapperHeight = this.picture.nativeElement.parentNode.offsetHeight;
   }
@@ -59,6 +59,7 @@ export class ArtComponent implements OnInit
 
   public CenterImage()
   {
+    console.log(this.imageWidth + " " + this.wrapperWidth);
     if(this.imageWidth > this.wrapperWidth)
     {
       this.smallerThanWrapper = false;
@@ -67,6 +68,8 @@ export class ArtComponent implements OnInit
     else
     {
       this.smallerThanWrapper = true;
+      this.picture.nativeElement.style.left = 0;
+      this.picture.nativeElement.style.width = this.wrapperWidth + "px";
     }
 
     if(this.picture.nativeElement.height > this.wrapperHeight)

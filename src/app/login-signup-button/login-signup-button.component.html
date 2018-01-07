@@ -1,11 +1,9 @@
 <div class="login-wrapper">
   <div *ngIf="!userService.isLogged">
     <a routerLink="login">
-      <button class="btn btn-success mt-2 login-button">
-        Login
-      </button>
+      <p>Login</p>
     </a>
-    <a routerLink="sign-up" class="sign-up-button">
+    <a routerLink="sign-up">
       <p>Sign-up</p>
     </a>
   </div>

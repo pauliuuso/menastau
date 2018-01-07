@@ -227,10 +227,10 @@ export class AddArtComponent implements OnInit, OnDestroy
     {
       this.uploading = true;
 
-      this.art.append("title", this.title.value);
+      this.art.append("title", encodeURI(this.title.value));
       this.art.append("category", this.category.value);
       this.art.append("authorid", this.author.value);
-      this.art.append("description", this.description.value);
+      this.art.append("description", encodeURI(this.description.value));
       this.art.append("year", this.year.value)
       this.art.append("price", this.price.value);
       this.art.append("token", this.userService.token);
@@ -246,7 +246,7 @@ export class AddArtComponent implements OnInit, OnDestroy
           {
             this.userService.token = response.token;
             this.userService.WriteCookies();
-            this.router.navigate([""]);
+            this.router.navigate(["picture-added"]);
           }
           else
           {

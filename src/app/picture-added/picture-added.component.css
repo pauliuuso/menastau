@@ -1,0 +1,24 @@
+.admin-option
+{
+    height: 200px;
+    cursor: pointer;
+    background-clip: content-box;
+}
+
+.admin-option p
+{
+    text-transform: capitalize;
+    color: white;
+    font-size: 20px;
+}
+
+.admin-option i
+{
+    color: white;
+    font-size: 32px;
+}
+
+a
+{
+    text-decoration: none;
+}
