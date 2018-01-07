@@ -11,6 +11,22 @@
     overflow: hidden;
 }
 
+.art-info
+{
+    width: 100%;
+    height: 100px;
+}
+
+.art-title
+{
+    text-transform: uppercase;
+}
+
+.art-author
+{
+    
+}
+
 .art-image
 {
     position: absolute;

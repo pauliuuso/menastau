@@ -28,7 +28,7 @@ const appRoutes: Routes =
 [
   {
     path: '',
-    redirectTo: 'gallery/all',
+    redirectTo: 'gallery',
     pathMatch: 'full'
   },
   {
@@ -37,10 +37,6 @@ const appRoutes: Routes =
   },
   {
     path: 'gallery/:sorttype/:page',
-    component: GalleryComponent
-  },
-  {
-    path: 'gallery/:sorttype/:sortvar1/:page',
     component: GalleryComponent
   },
   {

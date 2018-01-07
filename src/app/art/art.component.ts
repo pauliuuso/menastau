@@ -39,6 +39,7 @@ export class ArtComponent implements OnInit
 
   ngOnInit()
   {
+    console.log(this.author);
     this.wrapperWidth = this.picture.nativeElement.parentNode.offsetWidth;
     this.wrapperHeight = this.picture.nativeElement.parentNode.offsetHeight;
   }

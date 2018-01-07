@@ -35,3 +35,48 @@
     border-right: 1px solid black;
     cursor: pointer;
 }
+
+.art-pagination
+{
+    margin-bottom: 150px;
+}
+
+.art-pagination p
+{
+    padding: 0 5px;
+    line-height: 15px;
+    font-size: 18px;
+    display: inline;
+}
+
+.art-pagination a p
+{
+    border-right: 1px solid black;
+    cursor: pointer;
+}
+
+.art-pagination a:last-child
+{
+    border-right: none;
+}
+
+.art-pagination a:first-child:before
+{
+    content: "< ";
+}
+
+.art-pagination a:last-child:after
+{
+    content: " >";
+}
+
+.art-pagination .active
+{
+    background: lightslategray;
+}
+
+.art-pagination a
+{
+    text-decoration: none;
+    color: black;
+}

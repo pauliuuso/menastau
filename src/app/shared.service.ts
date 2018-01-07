@@ -36,9 +36,9 @@ export class SharedService
     );
   }
 
-  public GetAllWorks(page: number): Observable<IWork[]>
+  public GetAllWorks(page: number, count: number): Observable<IWork[]>
   {
-    return this.http.post(this.getAllWorksUrl, {"page": page})
+    return this.http.post(this.getAllWorksUrl, {"page": page, "count": count})
     .map
     (
       data => data.json().works as IWork[]
@@ -62,8 +62,11 @@ export interface ICategory
 
 export interface IWork
 {
+  work_count: string,
   id: string;
-  authorid: string;
+  author_id: string;
+  author_name: string;
+  author_surname: string;
   title: string;
   category: string;
   year: string;
