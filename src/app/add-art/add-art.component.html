@@ -26,9 +26,11 @@
         >
           <label for="category">Category:</label>
           <select name="category" class="form-control" formControlName="category">
-            <option value="0">--Select category--</option>
             <option *ngFor="let category of categories; let index" value="{{category.id}}">{{category.name}}</option>
           </select>
+          <div class="form-control-feedback" *ngIf="category.touched && category.invalid">
+              <p *ngIf="category.errors.required">This field is mandatory!</p>
+            </div>
           <p class="text-danger">{{categoriesError}}</p>
         </div>
 
@@ -40,7 +42,6 @@
         >
           <label for="author">Author:</label>
           <select name="author" class="form-control" formControlName="author">
-            <option value="0">--Select author--</option>
             <option *ngFor="let author of authors; let index" value="{{author.id}}">{{sharedService.Decode(author.name)}} {{sharedService.Decode(author.surname)}}</option>
           </select>
           <div class="form-control-feedback" *ngIf="author.touched && author.invalid">
