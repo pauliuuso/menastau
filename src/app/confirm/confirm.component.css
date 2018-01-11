@@ -1,0 +1,18 @@
+.confirm-wrapper
+{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+    overflow: hidden;
+}
+
+.confirm-box
+{
+    background: rgba(255, 255, 255, 1);
+    margin-top: 150px;
+}

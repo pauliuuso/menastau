@@ -90,8 +90,8 @@ export class AddArtComponent implements OnInit, OnDestroy
   public CreateFormControls()
   {
     this.title = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]);
-    this.category = new FormControl(1, [Validators.required]);
-    this.author = new FormControl(1, [Validators.required]);
+    this.category = new FormControl('', [Validators.required]);
+    this.author = new FormControl('', [Validators.required]);
     this.description = new FormControl('', [Validators.maxLength(1000)]);
     this.year = new FormControl('', [Validators.required, Validators.pattern("^[0-9/.]*$")]);
     this.price = new FormControl('', [Validators.required, Validators.pattern("^[0-9/.]*$")]);

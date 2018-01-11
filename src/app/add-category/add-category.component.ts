@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidatorService } from '../validator.service';
 import { SharedService, ICategory } from '../shared.service';
@@ -6,6 +6,7 @@ import { UserService } from '../user.service';
 import "rxjs/add/operator/takeUntil";
 import { Http } from '@angular/http';
 import { Subject } from "rxjs/Subject";
+import { ConfirmComponent } from '../confirm/confirm.component';
 
 @Component({
   selector: 'app-add-category',
@@ -16,13 +17,22 @@ export class AddCategoryComponent implements OnInit, OnDestroy
 {
   form: FormGroup;
   errorMessage: string;
+  question: string;
   uploading = false;
+  deleteId: string;
   url = this.userService.baseUrl + 'art/categories';
 
   category: FormControl;
   public categories: ICategory[];
 
   private unsubscribe: Subject<void> = new Subject<void>();
+
+  @ViewChild(ConfirmComponent)
+  confirm: ConfirmComponent;
+
+  @ViewChild("categoryElement")
+  categoryElement: ElementRef;
+
 
   constructor(private sharedService: SharedService, private http: Http, private userService: UserService) { }
 
@@ -75,6 +85,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy
           if(data.json().message == "OK")
           {
             this.GetCategories();
+            this.categoryElement.nativeElement.value = "";
           }
         },
         error =>
@@ -83,6 +94,13 @@ export class AddCategoryComponent implements OnInit, OnDestroy
         }
       )
     }
+  }
+
+  public DeleteCategoryClicked(id: string, name: string)
+  {
+    this.question = "Are you sure you want to delete " + name + " category?";
+    this.confirm.ShowConfirmation();
+    this.deleteId = id;
   }
 
   public DeleteCategory(id: string)
@@ -104,6 +122,14 @@ export class AddCategoryComponent implements OnInit, OnDestroy
         this.errorMessage = error.message
       }
     )
+  }
+
+  Confirm(confirm: boolean)
+  {
+    if(confirm)
+    {
+      this.DeleteCategory(this.deleteId);
+    }
   }
 
 }

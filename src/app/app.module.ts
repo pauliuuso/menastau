@@ -26,6 +26,8 @@ import { ArtComponent } from './art/art.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { PictureAddedComponent } from './picture-added/picture-added.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { ManageArtworksComponent } from './manage-artworks/manage-artworks.component';
 
 const appRoutes: Routes =
 [
@@ -73,6 +75,11 @@ const appRoutes: Routes =
     path: 'add-category',
     canActivate: [AdminGuard],
     component: AddCategoryComponent
+  },
+  {
+    path: 'manage-artworks',
+    canActivate: [AdminGuard],
+    component: ManageArtworksComponent
   }
 ];
 
@@ -91,7 +98,9 @@ const appRoutes: Routes =
     ArtComponent,
     AdminDashboardComponent,
     PictureAddedComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ConfirmComponent,
+    ManageArtworksComponent
   ],
   imports: [
     BrowserModule,
