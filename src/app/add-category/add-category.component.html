@@ -1,0 +1,35 @@
+<div class="row mb-5">
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+
+    <h4>Add category:</h4>
+
+    <form [formGroup]="form" (ngSubmit)="AddCategory()" class="mt-3 mb-5" novalidate>
+      <div class="form-group"
+      [ngClass]="{
+        'has-danger': category.touched && category.invalid,
+        'has-success': category.touched && category.valid
+      }"
+      >
+        <label for="category">Category name:</label>
+        <input #categoryElement name="category" type="text" class="form-control" placeholder="Enter category name" formControlName="category" maxlength="50">
+        <div class="form-control-feedback" *ngIf="category.touched && category.invalid">
+          <p *ngIf="category.errors.required">This field is mandatory!</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [ngClass]="{'btn-disabled': uploading, 'btn-primary': !uploading}" [disabled]="uploading">Submit</button>
+      <div [ngClass]="{'hidden-xs-up': !uploading}"><i class="fa fa-spinner fa-spin"></i></div>
+      <p class="text-danger mt-2">{{errorMessage}}</p>
+
+      <p class="text-danger">{{errorMessage}}</p>
+
+    </form>
+  
+    <h4 class="mb-4">Existing categories:</h4>
+    <div class="category bg-success mb-2 animated fadeIn" *ngFor="let category of categories">
+      {{category.name}}
+      <i class="fa fa-times" aria-hidden="true" (click)="DeleteCategory(category.id)"></i>      
+    </div>
+
+  </div>
+</div>

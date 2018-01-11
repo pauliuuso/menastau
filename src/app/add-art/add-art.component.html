@@ -14,7 +14,7 @@
           <input name="title" type="text" class="form-control" placeholder="Enter title" formControlName="title" maxlength="50">
           <div class="form-control-feedback" *ngIf="title.touched && title.invalid">
             <p *ngIf="title.errors.required">This field is mandatory!</p>
-            <p *ngIf="email.errors.minlength || validatorService.MaxLength(email.value, 50)">Title has to have more than 1 and less than 50 characters!</p>
+            <p *ngIf="title.errors.minlength || validatorService.MaxLength(title.value, 50)">Title has to have more than 1 and less than 50 characters!</p>
           </div>
         </div>
 
@@ -72,7 +72,7 @@
         }"
         >
           <label for="year">Year:</label>
-          <input name ="year" type="number" min="0" step="1" class="form-control" placeholder="Year" formControlName="year" maxlength="4">
+          <input name ="year" type="text" min="0" step="1" class="form-control" placeholder="Year" formControlName="year" maxlength="4">
           <div class="form-control-feedback" *ngIf="year.touched && year.invalid">
             <p *ngIf="year.errors.required">This field is mandatory!</p>
             <p *ngIf="year.errors.pattern">Only numbers are allowed!</p>
@@ -87,8 +87,7 @@
         >
           <label for="price">Price:</label>
           <div>
-            <input name="price" type="number" min="0" step="1" class="form-control col-11 shorter-input mr-2" placeholder="Price" formControlName="price">
-            <i class="fa fa-eur eur-icon mt-1" aria-hidden="true"></i>
+            <input name="price" type="text" min="0" step="1" class="form-control" placeholder="Price" formControlName="price">
           </div>
           <div class="form-control-feedback" *ngIf="price.touched && price.invalid">
             <p *ngIf="price.errors.required">This field is mandatory!</p>

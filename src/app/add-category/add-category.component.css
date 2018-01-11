@@ -1,0 +1,11 @@
+.category
+{
+    padding: 10px;
+    color: white;
+}
+
+.category i
+{
+    float: right;
+    cursor: pointer;
+}

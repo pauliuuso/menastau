@@ -25,6 +25,7 @@ import { AddArtComponent } from './add-art/add-art.component';
 import { ArtComponent } from './art/art.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { PictureAddedComponent } from './picture-added/picture-added.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 const appRoutes: Routes =
 [
@@ -68,6 +69,11 @@ const appRoutes: Routes =
     canActivate: [AdminGuard],
     component: PictureAddedComponent
   },
+  {
+    path: 'add-category',
+    canActivate: [AdminGuard],
+    component: AddCategoryComponent
+  }
 ];
 
 @NgModule({
@@ -84,7 +90,8 @@ const appRoutes: Routes =
     AddArtComponent,
     ArtComponent,
     AdminDashboardComponent,
-    PictureAddedComponent
+    PictureAddedComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
