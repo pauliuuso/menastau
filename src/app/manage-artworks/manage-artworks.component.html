@@ -1,11 +1,22 @@
 <div class="row mb-5">
-  <div class="col-12 col-md-10 col-lg-8 col-xl-6">
-    <h4 class="mb-3">Manage artworks:</h4>
+  <h4 class="mb-3">Manage artworks:</h4>
 
-    <div class="row col-12 work mb-4" *ngFor="let work of works">
-      <img src="{{work.thumbnail_url}}"/>
+  <div class="work mb-4 pt-2 pb-2 col-12" *ngFor="let work of works; let i = index">
+    <div class="row">
+      <div class="col-6 col-sm-3 col-md-2 col-lg-2 mb-3 work-wrapper">
+        <img src="{{work.thumbnail_url}}"/>
+      </div>
+      <div class="col-6 col-sm-3 col-md-2 mb-3">
+        {{ sharedService.Decode(work.title) }}
+      </div>
+      <div class="col-6 col-sm-3 col-md-2">
+        <p [ngClass]="{'text-success': work.active == true, 'text-danger': work.active == false}">{{ IsActive(i) }}</p>
+      </div>
+      <div class="col-6 col-sm-3 col-md-2">
+        <button class="btn" (click)="Activation(work.active, work.id, i)" [ngClass]="{'btn-warning': work.active == true, 'btn-success': work.active == false}" [disabled]="uploading">{{ GetActivateButtonText(i) }}</button>
+      </div>
     </div>
-
   </div>
+
 </div>
 

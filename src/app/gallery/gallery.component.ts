@@ -57,7 +57,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
   {
     if(this.sorttype == "all")
     {
-      this.sharedService.GetAllWorks(this.currentPage, this.workCount).takeUntil(this.unsubscribe)
+      this.sharedService.GetAllWorks(this.currentPage, this.workCount, true).takeUntil(this.unsubscribe)
       .subscribe
       (
         data =>

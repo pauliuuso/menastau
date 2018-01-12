@@ -77,13 +77,15 @@ export class AddCategoryComponent implements OnInit, OnDestroy
 
     if(this.form.valid)
     {
-      this.http.post(this.url, { "category": this.category.value })
+      this.http.post(this.url, { "category": this.category.value, "token": this.userService.token, "id": this.userService.id })
       .subscribe
       (
         data =>
         {
           if(data.json().message == "OK")
           {
+            this.userService.token = data.json().token;
+            this.userService.WriteCookies();
             this.GetCategories();
             this.categoryElement.nativeElement.value = "";
           }
@@ -107,13 +109,15 @@ export class AddCategoryComponent implements OnInit, OnDestroy
   {
     this.errorMessage = "";
 
-    this.http.delete(this.url + "?id=" + id)
+    this.http.delete(this.url + "?id=" + id + "&token=" + this.userService.token + "&userid=" + this.userService.id)
     .subscribe
     (
       data =>
       {
         if(data.json().message == "OK")
         {
+          this.userService.token = data.json().token;
+          this.userService.WriteCookies();
           this.GetCategories();
         }
       },
