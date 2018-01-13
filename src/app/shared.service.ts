@@ -75,4 +75,6 @@ export interface IWork
   active: boolean;
   thumbnail_url: string;
   picture_url: string;
+  thumbnail_name: string;
+  picture_name: string;
 }

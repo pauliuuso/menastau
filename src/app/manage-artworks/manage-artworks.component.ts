@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SharedService, IWork } from '../shared.service';
 import { UserService } from '../user.service';
 import "rxjs/add/operator/takeUntil";
 import { Subject } from "rxjs/Subject";
 import { Http } from "@angular/http";
+import { ConfirmComponent } from '../confirm/confirm.component';
 
 @Component({
   selector: 'app-manage-artworks',
@@ -15,15 +16,22 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
   works: IWork[];
   errorMessage: string;
   url = this.userService.baseUrl + "art/activation";
+  deleteUrl = this.userService.baseUrl + "art/delete";
   uploading = false;
+  deleteId: string;
+  deleteIndex: number;
+  question: string;
 
   private unsubscribe: Subject<void> = new Subject<void>();
+
+  @ViewChild(ConfirmComponent)
+  confirm: ConfirmComponent;
 
   constructor(private sharedService: SharedService, private http: Http, private userService: UserService) { }
 
   ngOnInit() 
   {
-    this.sharedService.GetAllWorks(1, 0).takeUntil(this.unsubscribe)
+    this.sharedService.GetAllWorks(1, 0, false).takeUntil(this.unsubscribe)
     .subscribe
     (
       data =>
@@ -64,6 +72,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
     else
     {
       return "Innactive";
+    }
   }
 
   public Activation(active: boolean, id: string, index: number)
@@ -99,6 +108,48 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
         this.errorMessage = error.message;
       }
     )
+  }
+
+  public DeleteArtworkClicked(id: string, name: string, index: number)
+  {
+    this.question = "Are you sure you want to delete " + name + " artwork?";
+    this.confirm.ShowConfirmation();
+    this.deleteIndex = index;
+    this.deleteId = id;
+  }
+
+  public DeleteArtwork()
+  {
+    this.errorMessage = "";
+    this.uploading = true;
+    
+    this.http.post(this.deleteUrl, {"id": this.deleteId, "token": this.userService.token, "userid": this.userService.id, "thumbnail_name": this.works[this.deleteIndex].thumbnail_name, "picture_name": this.works[this.deleteIndex].picture_name })
+    .subscribe
+    (
+      data =>
+      {
+        this.uploading = false;
+        if(data.json().message == "OK")
+        {
+          this.userService.token = data.json().token;
+          this.userService.WriteCookies();
+          this.works.splice(this.deleteIndex, 1);
+        }
+      },
+      error =>
+      {
+        this.uploading = false;
+        this.errorMessage = error.message;
+      }
+    )
+  }
+
+  public Confirm(confirm: boolean)
+  {
+    if(confirm)
+    {
+      this.DeleteArtwork();
+    }
   }
 
 }
