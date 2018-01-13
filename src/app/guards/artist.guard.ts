@@ -12,7 +12,7 @@ export class ArtistGuard implements CanActivate
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean 
   {
-    if(this.userService.isLogged && this.userService.role === this.userService.userRoles.artist)
+    if(this.userService.isLogged && this.userService.role === this.userService.userRoles.author)
     {
       return true;
     }
