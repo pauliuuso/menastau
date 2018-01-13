@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { SharedService, IWork } from '../shared.service';
+import { SharedService, IAllWorks } from '../shared.service';
 import "rxjs/add/operator/takeUntil";
 import { Subject } from "rxjs/Subject";
 
@@ -21,7 +21,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void> = new Subject<void>();
 
-  public works: IWork[];
+  public allWorks: IAllWorks;
   public totalWorks: number;
   public totalPages: Array<number>;
 
@@ -62,12 +62,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
       (
         data =>
         {
-          this.works = data;
-          if(data[0])
-          {
-            this.totalWorks = Number(data[0].work_count) || 0;
-            this.SetTotalPages(Math.floor(this.totalWorks / this.workCount));
-          }
+          this.allWorks = data;
+          this.totalWorks = Number(this.allWorks.work_count) || 0;
+          this.SetTotalPages(Math.floor(this.totalWorks / this.workCount));
         },
         error =>
         {

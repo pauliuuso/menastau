@@ -1,7 +1,7 @@
 <div class="row mb-5">
   <h4 class="mb-3">Manage artworks:</h4>
 
-  <div class="work mb-4 pt-2 col-12" *ngFor="let work of works; let i = index">
+  <div class="work mb-4 pt-2 col-12" *ngFor="let work of allWorks?.works; let i = index">
     <div class="row">
       <div class="col-6 col-sm-3 col-md-2 col-lg-2 mb-2 work-wrapper">
         <img src="{{work.thumbnail_url}}"/>

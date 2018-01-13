@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { SharedService, IWork } from '../shared.service';
+import { SharedService, IAllWorks } from '../shared.service';
 import { UserService } from '../user.service';
 import "rxjs/add/operator/takeUntil";
 import { Subject } from "rxjs/Subject";
@@ -13,7 +13,7 @@ import { ConfirmComponent } from '../confirm/confirm.component';
 })
 export class ManageArtworksComponent implements OnInit, OnDestroy
 {
-  works: IWork[];
+  allWorks: IAllWorks;
   errorMessage: string;
   url = this.userService.baseUrl + "art/activation";
   deleteUrl = this.userService.baseUrl + "art/delete";
@@ -36,7 +36,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
     (
       data =>
       {
-        this.works = data;
+        this.allWorks = data;
       },
       error =>
       {
@@ -53,7 +53,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
 
   public GetActivateButtonText(index: number)
   {
-    if(this.works[index].active == true)
+    if(this.allWorks.works[index].active == true)
     {
       return "Deactivate";
     }
@@ -65,7 +65,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
 
   public IsActive(index: number)
   {
-    if(this.works[index].active == true)
+    if(this.allWorks.works[index].active == true)
     {
       return "Active";
     }
@@ -99,7 +99,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
         {
           this.userService.token = data.json().token;
           this.userService.WriteCookies();
-          this.works[index].active = activate;
+          this.allWorks.works[index].active = activate;
         }
       },
       error =>
@@ -123,7 +123,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
     this.errorMessage = "";
     this.uploading = true;
     
-    this.http.post(this.deleteUrl, {"id": this.deleteId, "token": this.userService.token, "userid": this.userService.id, "thumbnail_name": this.works[this.deleteIndex].thumbnail_name, "picture_name": this.works[this.deleteIndex].picture_name })
+    this.http.post(this.deleteUrl, {"id": this.deleteId, "token": this.userService.token, "userid": this.userService.id, "thumbnail_name": this.allWorks.works[this.deleteIndex].thumbnail_name, "picture_name": this.allWorks.works[this.deleteIndex].picture_name })
     .subscribe
     (
       data =>
@@ -133,7 +133,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
         {
           this.userService.token = data.json().token;
           this.userService.WriteCookies();
-          this.works.splice(this.deleteIndex, 1);
+          this.allWorks.works.splice(this.deleteIndex, 1);
         }
       },
       error =>

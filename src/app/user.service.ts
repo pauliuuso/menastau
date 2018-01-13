@@ -16,7 +16,7 @@ export class UserService
   public userRoles: IRoles =
   {
     user: "user",
-    artist: "artist",
+    author: "author",
     admin: "admin"
   };
   
@@ -73,6 +73,6 @@ export class UserService
 export interface IRoles
 {
   user: string;
-  artist: string;
+  author: string;
   admin: string;
 }

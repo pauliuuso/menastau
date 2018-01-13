@@ -1,0 +1,26 @@
+<div class="row mb-5">
+  <h4 class="mb-5">Manage users:</h4>
+
+  <div class="col-12" *ngFor="let user of allUsers?.users">
+    <div class="row user p-2 mb-2" *ngIf="user.role != userService.userRoles.admin">
+
+      <div class="col-6 col-sm-3 col-md-2 col-lg-2">
+        <p>{{sharedService.Decode(user.name)}} {{sharedService.Decode(user.surname)}}</p>
+      </div>
+
+      <div class="col-6 col-sm-3 col-md-2 col-lg-2">
+        <p>{{user.lastlogin}}</p>
+      </div>
+
+      <div class="col-6 col-sm-3 col-md-2 col-lg-2">
+        <p>{{user.role}}</p>
+      </div>
+
+      <div class="col-6 col-sm-3 col-md-2 col-lg-2">
+          <button class="btn btn-success set-button">Edit</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -28,6 +28,7 @@ import { PictureAddedComponent } from './picture-added/picture-added.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ManageArtworksComponent } from './manage-artworks/manage-artworks.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 const appRoutes: Routes =
 [
@@ -80,6 +81,11 @@ const appRoutes: Routes =
     path: 'manage-artworks',
     canActivate: [AdminGuard],
     component: ManageArtworksComponent
+  },
+  {
+    path: 'manage-users',
+    canActivate: [AdminGuard],
+    component: ManageUsersComponent
   }
 ];
 
@@ -100,7 +106,8 @@ const appRoutes: Routes =
     PictureAddedComponent,
     AddCategoryComponent,
     ConfirmComponent,
-    ManageArtworksComponent
+    ManageArtworksComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,

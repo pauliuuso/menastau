@@ -59,7 +59,6 @@ export class ArtComponent implements OnInit
 
   public CenterImage()
   {
-    console.log(this.imageWidth + " " + this.wrapperWidth);
     if(this.imageWidth > this.wrapperWidth)
     {
       this.smallerThanWrapper = false;

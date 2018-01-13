@@ -10,6 +10,7 @@ export class SharedService
   categoriesUrl = this.userService.baseUrl + "art/categories";
   authorsUrl = this.userService.baseUrl + "users/authors";
   getAllWorksUrl = this.userService.baseUrl + "art/getall";
+  getAllUsersUrl = this.userService.baseUrl + "users/allusers";
 
   constructor(private http: Http, private userService: UserService) { }
 
@@ -36,12 +37,21 @@ export class SharedService
     );
   }
 
-  public GetAllWorks(page: number, count: number, getactive: boolean): Observable<IWork[]>
+  public GetAllWorks(page: number, count: number, getactive: boolean): Observable<IAllWorks>
   {
     return this.http.post(this.getAllWorksUrl, {"page": page, "count": count, "getactive": getactive })
     .map
     (
-      data => data.json().works as IWork[]
+      data => data.json() as IAllWorks
+    );
+  }
+
+  public GetAllUsers(): Observable<IAllUsers>
+  {
+    return this.http.post(this.getAllUsersUrl, {"id": this.userService.id, "token": this.userService.token})
+    .map
+    (
+      data => data.json() as IAllUsers
     );
   }
 
@@ -77,4 +87,27 @@ export interface IWork
   picture_url: string;
   thumbnail_name: string;
   picture_name: string;
+}
+
+export interface IAllWorks
+{
+  works: IWork[];
+  message: string;
+  work_count: number;
+}
+
+export interface IUser
+{
+  id: string;
+  name: string;
+  surname: string;
+  role: string;
+  lastlogin: string;
+}
+
+export interface IAllUsers
+{
+  users: IUser[];
+  token: string;
+  message: string;
 }
