@@ -12,7 +12,7 @@ export class SharedService
   getAllWorksUrl = this.userService.baseUrl + "art/getall";
   getAllUsersUrl = this.userService.baseUrl + "users/allusers";
   getUserInfoUrl = this.userService.baseUrl + "users/userinfo";
-  updateUserInfoUrl = this.userService.baseUrl + "users/updateinfo";
+  updateUserInfoUrl = this.userService.baseUrl + "users/updateuserinfo";
 
   constructor(private http: Http, private userService: UserService) { }
 
@@ -66,11 +66,12 @@ export class SharedService
     );
   }
 
-  public UpdateUserInfo(name: string, surname: string, role = ""): Observable<IResponse>
+  public UpdateUserInfo(name: string, surname: string, id: string, role = ""): Observable<IResponse>
   {
     return this.http.post(this.updateUserInfoUrl, 
     {
-      "id": this.userService.id,
+      "initiator_id": this.userService.id,
+      "id": id,
       "token": this.userService.token,
       "name": name,
       "surname": surname,
@@ -128,6 +129,7 @@ export interface IUser
   id: string;
   name: string;
   surname: string;
+  email: string;
   role: string;
   lastlogin: string;
 }

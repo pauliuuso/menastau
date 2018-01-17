@@ -18,6 +18,7 @@ export class EditUserComponent implements OnInit, OnDestroy
   errorMessage: string;
   isUploading = false;
   userInfo: IUser;
+  userId: string;
 
   unsubscribe: Subject<void> = new Subject<void>();
 
@@ -33,6 +34,7 @@ export class EditUserComponent implements OnInit, OnDestroy
 
     this.activatedRoute.params.subscribe(params =>
     {
+      this.userId = params["id"];
       this.GetUserInfo(params["id"]);
     });
   }
@@ -65,6 +67,8 @@ export class EditUserComponent implements OnInit, OnDestroy
       data => 
       {
         this.userInfo = data;
+        this.name.setValue(this.userInfo.name);
+        this.surname.setValue(this.userInfo.surname);
         this.name.enable();
         this.surname.enable();
       },
@@ -89,7 +93,7 @@ export class EditUserComponent implements OnInit, OnDestroy
     {
       this.isUploading = true;
 
-      this.sharedService.UpdateUserInfo(this.name.value, this.surname.value).takeUntil(this.unsubscribe)
+      this.sharedService.UpdateUserInfo(this.name.value, this.surname.value, this.userId).takeUntil(this.unsubscribe)
       .subscribe
       (
         data =>
