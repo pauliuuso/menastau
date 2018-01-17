@@ -103,5 +103,10 @@ export class GalleryComponent implements OnInit, OnDestroy {
     return url;
   }
 
+  public ViewFull(workTitle: string, id: string)
+  {
+    this.router.navigateByUrl("/artwork/" + workTitle + "/" + id);
+  }
+
 
 }

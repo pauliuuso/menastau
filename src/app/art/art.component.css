@@ -1,4 +1,7 @@
-
+:host
+{
+    cursor: pointer;
+}
 
 .art-wrapper
 {

@@ -30,6 +30,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 import { ManageArtworksComponent } from './manage-artworks/manage-artworks.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ArtworkComponent } from './artwork/artwork.component';
 
 const appRoutes: Routes =
 [
@@ -49,6 +50,10 @@ const appRoutes: Routes =
   {
     path: 'gallery/:sorttype/:sortvar1/:sortvar2/:page',
     component: GalleryComponent
+  },
+  {
+    path: 'artwork/:name/:id',
+    component: ArtworkComponent
   },
   {
     path: 'sign-up',
@@ -114,7 +119,8 @@ const appRoutes: Routes =
     ConfirmComponent,
     ManageArtworksComponent,
     ManageUsersComponent,
-    EditUserComponent
+    EditUserComponent,
+    ArtworkComponent
   ],
   imports: [
     BrowserModule,
