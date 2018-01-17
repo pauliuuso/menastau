@@ -69,7 +69,6 @@ export class UserService
 
 }
 
-
 export interface IRoles
 {
   user: string;

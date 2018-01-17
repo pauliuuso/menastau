@@ -6,7 +6,7 @@ import "rxjs/add/operator/takeUntil";
 import { Subject } from "rxjs/Subject";
 
 @Component({
-  selector: 'gallery-shop',
+  selector: 'app-gallery-shop',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.css']
 })

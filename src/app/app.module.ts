@@ -29,6 +29,7 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ManageArtworksComponent } from './manage-artworks/manage-artworks.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 const appRoutes: Routes =
 [
@@ -86,6 +87,11 @@ const appRoutes: Routes =
     path: 'manage-users',
     canActivate: [AdminGuard],
     component: ManageUsersComponent
+  },
+  {
+    path: 'edit-user/:id',
+    canActivate: [AdminGuard],
+    component: EditUserComponent
   }
 ];
 
@@ -107,7 +113,8 @@ const appRoutes: Routes =
     AddCategoryComponent,
     ConfirmComponent,
     ManageArtworksComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

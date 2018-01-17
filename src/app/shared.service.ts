@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
 import { UserService } from './user.service';
 
@@ -11,6 +11,8 @@ export class SharedService
   authorsUrl = this.userService.baseUrl + "users/authors";
   getAllWorksUrl = this.userService.baseUrl + "art/getall";
   getAllUsersUrl = this.userService.baseUrl + "users/allusers";
+  getUserInfoUrl = this.userService.baseUrl + "users/userinfo";
+  updateUserInfoUrl = this.userService.baseUrl + "users/updateinfo";
 
   constructor(private http: Http, private userService: UserService) { }
 
@@ -55,6 +57,31 @@ export class SharedService
     );
   }
 
+  public GetUserInfo(id: string): Observable<IUser>
+  {
+    return this.http.post(this.getUserInfoUrl, {"id": id, "token": this.userService.token})
+    .map
+    (
+      data => data.json() as IUser
+    );
+  }
+
+  public UpdateUserInfo(name: string, surname: string, role = ""): Observable<IResponse>
+  {
+    return this.http.post(this.updateUserInfoUrl, 
+    {
+      "id": this.userService.id,
+      "token": this.userService.token,
+      "name": name,
+      "surname": surname,
+      "role": role
+    })
+    .map
+    (
+      data => data.json() as IResponse
+    );
+  }
+
 }
 
 export interface IAuthor
@@ -72,7 +99,7 @@ export interface ICategory
 
 export interface IWork
 {
-  work_count: string,
+  work_count: string;
   id: string;
   author_id: string;
   author_name: string;
@@ -110,4 +137,10 @@ export interface IAllUsers
   users: IUser[];
   token: string;
   message: string;
+}
+
+export interface IResponse
+{
+  message: string;
+  token: string;
 }

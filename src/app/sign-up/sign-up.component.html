@@ -11,7 +11,7 @@
             }"
           >
             <label for="name">*Name:</label>
-            <input name="name" type="text" class="form-control" placeholder="Enter your name" formControlName="name" maxlength="20">
+            <input name="name" type="text" class="form-control" formControlName="name" maxlength="20">
             <div class="form-control-feedback" *ngIf="name.touched && name.invalid">
               <p *ngIf="name.errors.required">This field is mandatory!</p>
               <p *ngIf="name.errors.pattern">Name has unsupported symbols!</p>
@@ -26,7 +26,7 @@
             }"
           >
             <label for="surname">*Surname:</label>
-            <input name="surname" type="text" class="form-control" placeholder="Enter your surname" formControlName="surname" maxlength="50">
+            <input name="surname" type="text" class="form-control" formControlName="surname" maxlength="50">
             <div class="form-control-feedback" *ngIf="surname.touched && surname.invalid">
               <p *ngIf="surname.errors.required">This field is mandatory!</p>
               <p *ngIf="surname.errors.pattern">Name has unsupported symbols!</p>
