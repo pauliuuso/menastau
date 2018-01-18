@@ -24,6 +24,7 @@ export class EditUserComponent implements OnInit, OnDestroy
 
   name: FormControl;
   surname: FormControl;
+  role: FormControl;
 
   constructor(public validatorService: ValidatorService, public userService: UserService, private sharedService: SharedService, public http: Http, public router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -49,6 +50,7 @@ export class EditUserComponent implements OnInit, OnDestroy
   {
     this.name = new FormControl({value: '', disabled: true}, [Validators.required, Validators.pattern("^[a-zA-Z0-9_ -]*"), Validators.minLength(2), Validators.maxLength(20)]);
     this.surname = new FormControl({value: '', disabled: true}, [Validators.required, Validators.pattern("^[a-zA-Z0-9_ -]*"), Validators.minLength(2), Validators.maxLength(50)]);
+    this.role = new FormControl({value: '', disabled: true}, [Validators.required]);
   }
 
   public CreateForm()
@@ -56,7 +58,8 @@ export class EditUserComponent implements OnInit, OnDestroy
     this.form = new FormGroup
     ({
       name: this.name,
-      surname: this.surname
+      surname: this.surname,
+      role: this.role
     });
   }
 
@@ -71,6 +74,7 @@ export class EditUserComponent implements OnInit, OnDestroy
         this.surname.setValue(this.userInfo.surname);
         this.name.enable();
         this.surname.enable();
+        this.role.enable();
       },
       error => 
       {
@@ -93,7 +97,7 @@ export class EditUserComponent implements OnInit, OnDestroy
     {
       this.isUploading = true;
 
-      this.sharedService.UpdateUserInfo(this.name.value, this.surname.value, this.userId).takeUntil(this.unsubscribe)
+      this.sharedService.UpdateUserInfo(this.name.value, this.surname.value, this.userId, this.role.value).takeUntil(this.unsubscribe)
       .subscribe
       (
         data =>

@@ -107,7 +107,7 @@ export class ManageArtworksComponent implements OnInit, OnDestroy
         this.uploading = false;
         this.errorMessage = error.message;
       }
-    )
+    );
   }
 
   public DeleteArtworkClicked(id: string, name: string, index: number)

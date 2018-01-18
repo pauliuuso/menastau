@@ -130,6 +130,7 @@ export interface IUser
   name: string;
   surname: string;
   email: string;
+  active: boolean;
   role: string;
   lastlogin: string;
 }

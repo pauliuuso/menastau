@@ -34,6 +34,22 @@
           </div>
         </div>
 
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': role.touched && role.invalid,
+          'has-success': role.touched && role.valid
+        }"
+        >
+          <label for="role">Role:</label>
+          <select name="role" class="form-control" formControlName="role">
+            <option value="{{userService.userRoles.user}}" [selected]="userInfo.role === userService.userRoles.user">{{userService.userRoles.user}}</option>
+            <option value="{{userService.userRoles.author}}" [selected]="userInfo.role === userService.userRoles.author">{{userService.userRoles.author}}</option>
+          </select>
+          <div class="form-control-feedback" *ngIf="role.touched && role.invalid">
+              <p *ngIf="role.errors.required">This field is mandatory!</p>
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-primary" [ngClass]="{'btn-disabled': isUploading, 'btn-primary': !isUploading}" [disabled]="isUploading">Submit</button>
         <div [ngClass]="{'hidden-xs-up': !isUploading}"><i class="fa fa-spinner fa-spin"></i></div>
         <p class="text-danger mt-2">{{errorMessage}}</p>

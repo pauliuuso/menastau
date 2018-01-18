@@ -1,7 +1,7 @@
 <div class="row mb-5">
   <h4 class="mb-5">Manage users:</h4>
 
-  <div class="col-12" *ngFor="let user of allUsers?.users">
+  <div class="col-12" *ngFor="let user of allUsers?.users; let i = index">
     <div class="row user p-2 mb-2" *ngIf="user.role != userService.userRoles.admin">
 
       <div class="col-6 col-sm-3 col-md-2 col-lg-2">
@@ -27,7 +27,7 @@
       </div>
 
       <div class="col-6 col-sm-3 col-md-2 col-lg-2">
-          <button class="btn btn-warning set-button">Deactivate</button>
+          <button class="btn" (click)="Activation(user.active, user.id, i)" [ngClass]="{'btn-warning': user.active == true, 'btn-success': user.active == false}" [disabled]="uploading">{{ GetActivateButtonText(i) }}</button>
       </div>
 
     </div>
