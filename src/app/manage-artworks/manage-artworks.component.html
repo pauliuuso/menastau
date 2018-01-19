@@ -13,6 +13,11 @@
         <p [ngClass]="{'text-success': work.active == true, 'text-danger': work.active == false}">{{ IsActive(i) }}</p>
       </div>
       <div class="col-6 col-sm-3 col-md-2 mb-2">
+        <a routerLink="/edit-artwork/{{work.id}}">
+          <button class="btn btn-success" [disabled]="uploading">Edit</button>
+        </a>
+      </div>
+      <div class="col-6 col-sm-3 col-md-2 mb-2">
         <button class="btn" (click)="Activation(work.active, work.id, i)" [ngClass]="{'btn-warning': work.active == true, 'btn-success': work.active == false}" [disabled]="uploading">{{ GetActivateButtonText(i) }}</button>
       </div>
       <div class="col-6 col-sm-3 col-md-2 mb-2">

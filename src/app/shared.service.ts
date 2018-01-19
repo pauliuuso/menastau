@@ -10,6 +10,7 @@ export class SharedService
   categoriesUrl = this.userService.baseUrl + "art/categories";
   authorsUrl = this.userService.baseUrl + "users/authors";
   getAllWorksUrl = this.userService.baseUrl + "art/getall";
+  getOneWorkUrl = this.userService.baseUrl + "art/getone";
   getAllUsersUrl = this.userService.baseUrl + "users/allusers";
   getUserInfoUrl = this.userService.baseUrl + "users/userinfo";
   updateUserInfoUrl = this.userService.baseUrl + "users/updateuserinfo";
@@ -45,6 +46,15 @@ export class SharedService
     .map
     (
       data => data.json() as IAllWorks
+    );
+  }
+
+  public GetOneWork(id: string): Observable<IWork>
+  {
+    return this.http.post(this.getOneWorkUrl, {"id": id})
+    .map
+    (
+      data => data.json() as IWork
     );
   }
 

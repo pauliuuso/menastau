@@ -31,6 +31,7 @@ import { ManageArtworksComponent } from './manage-artworks/manage-artworks.compo
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ArtworkComponent } from './artwork/artwork.component';
+import { EditArtworkComponent } from './edit-artwork/edit-artwork.component';
 
 const appRoutes: Routes =
 [
@@ -97,6 +98,11 @@ const appRoutes: Routes =
     path: 'edit-user/:id',
     canActivate: [AdminGuard],
     component: EditUserComponent
+  },
+  {
+    path: 'edit-artwork/:id',
+    canActivate: [AdminGuard],
+    component: EditArtworkComponent
   }
 ];
 
@@ -120,7 +126,8 @@ const appRoutes: Routes =
     ManageArtworksComponent,
     ManageUsersComponent,
     EditUserComponent,
-    ArtworkComponent
+    ArtworkComponent,
+    EditArtworkComponent
   ],
   imports: [
     BrowserModule,

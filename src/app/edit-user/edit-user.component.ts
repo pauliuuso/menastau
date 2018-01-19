@@ -50,7 +50,7 @@ export class EditUserComponent implements OnInit, OnDestroy
   {
     this.name = new FormControl({value: '', disabled: true}, [Validators.required, Validators.pattern("^[a-zA-Z0-9_ -]*"), Validators.minLength(2), Validators.maxLength(20)]);
     this.surname = new FormControl({value: '', disabled: true}, [Validators.required, Validators.pattern("^[a-zA-Z0-9_ -]*"), Validators.minLength(2), Validators.maxLength(50)]);
-    this.role = new FormControl({value: '', disabled: true}, [Validators.required]);
+    this.role = new FormControl({value: '', disabled: true});
   }
 
   public CreateForm()
@@ -107,6 +107,7 @@ export class EditUserComponent implements OnInit, OnDestroy
           {
             this.userService.token = data.token;
             this.userService.WriteCookies();
+            this.router.navigateByUrl("/manage-users");
           }
           else
           {
