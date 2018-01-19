@@ -11,15 +11,18 @@
         <div class="sort-option">SIZE</div>
     </div>
 
-    <app-art class="col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let work of allWorks?.works" 
+    <a *ngFor="let work of allWorks?.works" class="col-12 col-md-6 col-lg-4 col-xl-3" routerLink="/artwork/{{work.title}}/{{work.id}}">
+        <app-art  
         [thumbnailUrl]="work.thumbnail_url"
         [title]="work.title" 
         [price]="work.price" 
         [author]="work.author_name + ' ' + work.author_surname" 
         [category]="work.category"
         (click)="ViewFull(work.title, work.id)"
-    >
-    </app-art>
+        >
+        </app-art>
+    </a>
+
 
     <div class="col-12 art-pagination text-center mt-5">
         <a *ngFor="let page of totalPages" [ngClass]="{'active': page == currentPage}" routerLink="/gallery/{{CurrentUrl()}}/{{page}}"><p>{{page}}</p></a>
