@@ -24,7 +24,7 @@ export class ArtworkComponent implements OnInit, OnDestroy
     this.activatedRoute.params.subscribe(params =>
     {
       this.workId = params["id"];
-      this.GetWorkInfo(params["id"]);
+      this.GetWorkInfo(this.workId);
     });
   }
 

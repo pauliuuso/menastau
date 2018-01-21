@@ -22,6 +22,12 @@ export class SharedService
     return decodeURI(text);
   }
 
+  public DecodeAndRemoveWhite(text: string)
+  {
+    text = decodeURI(text);
+    return text.replace(/\s+/g, '-').toLowerCase();
+  }
+
   public GetCategories(): Observable<ICategory[]>
   {
     return this.http.get(this.categoriesUrl)

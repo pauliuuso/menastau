@@ -11,14 +11,13 @@
         <div class="sort-option">SIZE</div>
     </div>
 
-    <a *ngFor="let work of allWorks?.works" class="col-12 col-md-6 col-lg-4 col-xl-3" routerLink="/artwork/{{work.title}}/{{work.id}}">
+    <a *ngFor="let work of allWorks?.works" class="col-12 col-md-6 col-lg-4 col-xl-3" routerLink="/artwork/{{sharedService.DecodeAndRemoveWhite(work.title)}}/{{work.id}}">
         <app-art  
         [thumbnailUrl]="work.thumbnail_url"
         [title]="work.title" 
         [price]="work.price" 
         [author]="work.author_name + ' ' + work.author_surname" 
         [category]="work.category"
-        (click)="ViewFull(work.title, work.id)"
         >
         </app-art>
     </a>
