@@ -30,14 +30,13 @@ export class AddArtComponent implements OnInit, OnDestroy
   description: FormControl;
   year: FormControl;
   price: FormControl;
+  art: FormData;
 
   public categories: ICategory[];
   public categoriesError: string;
   public authors: IAuthor[];
   public authorsError: string;
   private unsubscribe: Subject<void> = new Subject<void>();
-
-  art: FormData;
 
   constructor(public userService: UserService, public sharedService: SharedService, public validatorService: ValidatorService, public http: Http, private router: Router) { }
 
@@ -231,7 +230,7 @@ export class AddArtComponent implements OnInit, OnDestroy
       this.art.append("category", this.category.value);
       this.art.append("authorid", this.author.value);
       this.art.append("description", encodeURI(this.description.value));
-      this.art.append("year", this.year.value)
+      this.art.append("year", this.year.value);
       this.art.append("price", this.price.value);
       this.art.append("token", this.userService.token);
       this.art.append("userId", this.userService.id);

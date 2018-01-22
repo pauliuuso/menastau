@@ -1,3 +1,123 @@
-<p>
-  edit-artwork works!
-</p>
+<div class="row mb-5">
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+
+      <h4>Editing {{sharedService.Decode(work.title)}}:</h4>
+      <form [formGroup]="form" (ngSubmit)="AddArt()" class="mt-3" novalidate>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': title.touched && title.invalid,
+          'has-success': title.touched && title.valid
+        }"
+        >
+          <label for="title">Title:</label>
+          <input name="title" type="text" class="form-control" placeholder="Enter title" formControlName="title" maxlength="50">
+          <div class="form-control-feedback" *ngIf="title.touched && title.invalid">
+            <p *ngIf="title.errors.required">This field is mandatory!</p>
+            <p *ngIf="title.errors.minlength || validatorService.MaxLength(title.value, 50)">Title has to have more than 1 and less than 50 characters!</p>
+          </div>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': category.touched && category.invalid,
+          'has-success': category.touched && category.valid
+        }"
+        >
+          <label for="category">Category:</label>
+          <select name="category" class="form-control" formControlName="category">
+            <option *ngFor="let category of categories; let index" [selected]="category.id === work.category" value="{{category.id}}">{{category.name}}</option>
+          </select>
+          <div class="form-control-feedback" *ngIf="category.touched && category.invalid">
+              <p *ngIf="category.errors.required">This field is mandatory!</p>
+            </div>
+          <p class="text-danger">{{categoriesError}}</p>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': author.touched && author.invalid,
+          'has-success': author.touched && author.valid
+        }"
+        >
+          <label for="author">Author:</label>
+          <select name="author" class="form-control" formControlName="author">
+            <option *ngFor="let author of authors; let index" [selected]="author.id === work.author_id" value="{{author.id}}">{{sharedService.Decode(author.name)}} {{sharedService.Decode(author.surname)}}</option>
+          </select>
+          <div class="form-control-feedback" *ngIf="author.touched && author.invalid">
+            <p *ngIf="author.errors.required">This field is mandatory!</p>
+          </div>
+          <p class="text-danger">{{authorsError}}</p>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': description.touched && description.invalid,
+          'has-success': description.touched && description.valid
+        }"
+        >
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea name="description" class="form-control artshop-description" formControlName="description" placeholder="Description"></textarea>
+          </div>
+          <div class="form-control-feedback" *ngIf="description.touched && description.invalid">
+            <p *ngIf="validatorService.MaxLength(description.value, 1000)">Description has to be less than 1000 characters!</p>
+          </div>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': year.touched && year.invalid,
+          'has-success': year.touched && year.valid
+        }"
+        >
+          <label for="year">Year:</label>
+          <input name ="year" type="text" min="0" step="1" class="form-control" placeholder="Year" formControlName="year" maxlength="4">
+          <div class="form-control-feedback" *ngIf="year.touched && year.invalid">
+            <p *ngIf="year.errors.required">This field is mandatory!</p>
+            <p *ngIf="year.errors.pattern">Only numbers are allowed!</p>
+          </div>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{
+          'has-danger': price.touched && price.invalid,
+          'has-success': price.touched && price.valid
+        }"
+        >
+          <label for="price">Price:</label>
+          <div>
+            <input name="price" type="text" min="0" step="1" class="form-control" placeholder="Price" formControlName="price">
+          </div>
+          <div class="form-control-feedback" *ngIf="price.touched && price.invalid">
+            <p *ngIf="price.errors.required">This field is mandatory!</p>
+            <p *ngIf="price.errors.pattern">Only numbers are allowed!</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="thumbnail">Thumbnail:</label>
+          <div>
+            <input name="thumbnail" type="file" accept="image/png, image/jpeg, image/jpg" (change)="ThumbnailChanged($event)" class="form-control">
+          </div>
+          <p class="text-danger">{{ thumbnailError }}</p>
+          <img src="" [ngClass]="{'hidden-xs-up': !thumbnailSelected}" id="thumbnailFile" class="thumbnail-file col-12 col-sm-6 col-lg-4 p-0 m-0"/>
+        </div>
+
+        <div class="form-group">
+            <label for="picture">Picture:</label>
+            <div>
+              <input name="picture" type="file" accept="image/png, image/jpeg, image/jpg" (change)="PictureChanged($event)" class="form-control">
+            </div>
+            <p class="text-danger">{{ pictureError }}</p>
+            <img src="{{work.picture_url}}" id="pictureFile" class="picture-file col-12 p-0 m-0"/>
+          </div>
+
+
+        <button type="submit" class="btn btn-primary" [ngClass]="{'btn-disabled': uploading, 'btn-primary': !uploading}" [disabled]="uploading">Submit</button>
+        <div [ngClass]="{'hidden-xs-up': !uploading}"><i class="fa fa-spinner fa-spin"></i></div>
+        <p class="text-danger mt-2">{{errorMessage}}</p>
+
+      </form>
+  </div>
+</div>
