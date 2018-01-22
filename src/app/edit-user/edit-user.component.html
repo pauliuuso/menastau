@@ -42,8 +42,8 @@
         >
           <label for="role">Role:</label>
           <select name="role" class="form-control" formControlName="role">
-            <option value="{{userService.userRoles.user}}" [selected]="userInfo.role === userService.userRoles.user">{{userService.userRoles.user}}</option>
-            <option value="{{userService.userRoles.author}}" [selected]="userInfo.role === userService.userRoles.author">{{userService.userRoles.author}}</option>
+            <option value="{{userService.userRoles.user}}" [selected]="userInfo?.role === userService.userRoles.user">{{userService.userRoles.user}}</option>
+            <option value="{{userService.userRoles.author}}" [selected]="userInfo?.role === userService.userRoles.author">{{userService.userRoles.author}}</option>
           </select>
           <div class="form-control-feedback" *ngIf="role.touched && role.invalid">
               <p *ngIf="role.errors.required">This field is mandatory!</p>

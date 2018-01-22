@@ -6,13 +6,14 @@ import { UserService } from '../user.service';
 import { Subject } from "rxjs/Subject";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
+declare var $:any;
 
 @Component({
   selector: 'app-edit-artwork',
   templateUrl: './edit-artwork.component.html',
   styleUrls: ['./edit-artwork.component.css']
 })
-export class EditArtworkComponent implements OnInit, OnDestroy 
+export class EditArtworkComponent implements OnInit, OnDestroy
 {
   unsubscribe: Subject<void> = new Subject<void>();
   url = this.userService.baseUrl + "art/edit";
@@ -65,6 +66,9 @@ export class EditArtworkComponent implements OnInit, OnDestroy
     this.CreateFormControls();
     this.CreateForm();
 
+    this.GetCategories();
+    this.GetAuthors();
+
     this.art = new FormData();
     this.title.disable();
     this.category.disable();
@@ -78,15 +82,17 @@ export class EditArtworkComponent implements OnInit, OnDestroy
       this.workId = params["id"];
       this.GetWorkInfo(params["id"]);
     });
-
-    this.GetCategories();
-    this.GetAuthors();
   }
 
   ngOnDestroy()
   {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  public CheckIfSame(first: string, second: string)
+  {
+    return first === second;
   }
 
   public GetCategories(): void
