@@ -25,3 +25,8 @@ button:hover
 {
   visibility: hidden;
 }
+
+.uppercase
+{
+  text-transform: uppercase;
+}

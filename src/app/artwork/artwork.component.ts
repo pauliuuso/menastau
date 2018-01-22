@@ -14,10 +14,28 @@ export class ArtworkComponent implements OnInit, OnDestroy
 {
   unsubcribe: Subject<void> = new Subject<void>();
   workId: string;
-  work: IWork;
+  work: IWork = 
+  {
+    work_count: "",
+    id: "",
+    author_id: "",
+    author_name: "",
+    author_surname: "",
+    title: "",
+    category: "",
+    year: "",
+    description: "",
+    price: "",
+    active: true,
+    thumbnail_url: "",
+    picture_url: "",
+    thumbnail_name: "",
+    picture_name: ""
+  };
   errorMessage: string;
+  loading = true;
 
-  constructor(private sharedService: SharedService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(public sharedService: SharedService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() 
   {
@@ -47,6 +65,11 @@ export class ArtworkComponent implements OnInit, OnDestroy
         this.errorMessage = error.message;
       }
     );
+  }
+
+  public ImageLoaded()
+  {
+    this.loading = false;
   }
 
 }
