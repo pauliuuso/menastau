@@ -16,7 +16,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
   private sortvar1: string;
   private sortvar2: string;
   public currentPage: number;
-  private workCount = 24;
+  private workCount = 12;
   public errorMessage: string;
 
   private unsubscribe: Subject<void> = new Subject<void>();
@@ -106,7 +106,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         {
           this.allWorks = data;
           this.totalWorks = Number(this.allWorks.work_count) || 0;
-          this.SetTotalPages(Math.floor(this.totalWorks / this.workCount));
+          this.SetTotalPages(Math.ceil(this.totalWorks / this.workCount) + 1);
         },
         error =>
         {
@@ -123,7 +123,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         {
           this.allWorks = data;
           this.totalWorks = Number(this.allWorks.work_count) || 0;
-          this.SetTotalPages(Math.floor(this.totalWorks / this.workCount));
+          this.SetTotalPages(Math.ceil(this.totalWorks / this.workCount) + 1);
         },
         error =>
         {

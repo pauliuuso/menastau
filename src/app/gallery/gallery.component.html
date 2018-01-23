@@ -52,8 +52,7 @@
         </app-art>
     </a>
 
-
-    <div class="col-12 art-pagination text-center mt-5">
-        <a *ngFor="let page of totalPages" [ngClass]="{'active': page == currentPage}" routerLink="/gallery/{{CurrentUrl()}}/{{page}}"><p>{{page}}</p></a>
+    <div class="col-12 art-pagination text-center mt-5" *ngIf="totalPages != 1">
+        <a *ngFor="let page of totalPages" routerLink="/gallery/{{CurrentUrl()}}/{{page}}"><p [ngClass]="{'text-underline': page == currentPage}">{{page}}</p></a>
     </div>
 </div>

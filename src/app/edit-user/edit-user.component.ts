@@ -70,8 +70,8 @@ export class EditUserComponent implements OnInit, OnDestroy
       data => 
       {
         this.userInfo = data;
-        this.name.setValue(this.userInfo.name);
-        this.surname.setValue(this.userInfo.surname);
+        this.name.setValue(this.sharedService.Decode(this.userInfo.name));
+        this.surname.setValue(this.sharedService.Decode(this.userInfo.surname));
         this.name.enable();
         this.surname.enable();
         this.role.enable();

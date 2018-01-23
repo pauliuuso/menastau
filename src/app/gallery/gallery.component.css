@@ -56,9 +56,9 @@
 
 .art-pagination p
 {
-    padding: 0 5px;
+    padding: 10px;
     line-height: 15px;
-    font-size: 18px;
+    font-size: 22px;
     display: inline;
 }
 
@@ -73,7 +73,7 @@
     border-right: none;
 }
 
-.art-pagination a:first-child:before
+/* .art-pagination a:first-child:before
 {
     content: "< ";
 }
@@ -81,12 +81,8 @@
 .art-pagination a:last-child:after
 {
     content: " >";
-}
+} */
 
-.art-pagination .active
-{
-    background: lightslategray;
-}
 
 .art-pagination a
 {
