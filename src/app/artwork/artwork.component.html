@@ -1,14 +1,15 @@
 <div class="row">
-  <div class="col-12 text-center mb-5">
+  <div class="col-12 text-center mb-5 title">
       <h2 class="uppercase">{{sharedService.Decode(work.title)}}</h2>
   </div>
   <div class="col-12 col-md-6 hidden-xs-up artwork-loading" [ngClass]="{'hidden-xs-up': !loading}">
     <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
   </div>
-  <div class="col-12 col-md-6" [ngClass]="{'hidden-xs-up': loading, 'animated fadeIn': !loading}">
+  <div class="col-12 col-md-6 mb-3" [ngClass]="{'hidden-xs-up': loading, 'animated fadeIn': !loading}">
     <img class="img-fluid" src="{{work.picture_url}}" (load)="ImageLoaded()"/>
   </div>
   <div class="col-12 col-md-6 text-justify">
+    <p class="text-uppercase text-underline" *ngIf="!loading">DESCRIPTION</p>
     <p>{{sharedService.Decode(work.description)}}</p>
   </div>
 </div>

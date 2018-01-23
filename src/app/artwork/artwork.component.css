@@ -5,3 +5,8 @@
     font-size: 30px;
     padding-top: 150px;
 }
+
+.title
+{
+    min-height: 43px;
+}

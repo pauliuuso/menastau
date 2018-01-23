@@ -8,7 +8,13 @@ html, body
   height: 100%;
 }
 
-p, span, div, b, h1, h2, h3, h4, h5
+html
+{
+  overflow: -moz-scrollbars-vertical; 
+  overflow-y: scroll;
+}
+
+p, span, div, b, h1, h2, h3, h4, h5, ul, li, i, a
 {
   font-family: 'Lato', sans-serif;
 }
@@ -36,6 +42,11 @@ button:hover
 .uppercase
 {
   text-transform: uppercase;
+}
+
+.text-underline
+{
+  text-decoration: underline;
 }
 
 .marvel
