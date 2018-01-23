@@ -10,6 +10,8 @@ export class SharedService
   categoriesUrl = this.userService.baseUrl + "art/categories";
   authorsUrl = this.userService.baseUrl + "users/authors";
   getAllWorksUrl = this.userService.baseUrl + "art/getall";
+  getWorksByCategoryUrl = this.userService.baseUrl + "art/getbycategory";
+  getWorksByAuthorUrl = this.userService.baseUrl + "art/getbyauthor";
   getOneWorkUrl = this.userService.baseUrl + "art/getone";
   getAllUsersUrl = this.userService.baseUrl + "users/allusers";
   getUserInfoUrl = this.userService.baseUrl + "users/userinfo";
@@ -48,7 +50,25 @@ export class SharedService
 
   public GetAllWorks(page: number, count: number, getactive: boolean): Observable<IAllWorks>
   {
-    return this.http.post(this.getAllWorksUrl, {"page": page, "count": count, "getactive": getactive })
+    return this.http.post(this.getAllWorksUrl, {"page": page, "count": count, "getactive": getactive})
+    .map
+    (
+      data => data.json() as IAllWorks
+    );
+  }
+
+  public GetWorksByCategory(page: number, count: number, getactive: boolean, category: string): Observable<IAllWorks>
+  {
+    return this.http.post(this.getWorksByCategoryUrl, {"page": page, "count": count, "getactive": getactive, "category": category})
+    .map
+    (
+      data => data.json() as IAllWorks
+    );
+  }
+
+  public GetWorksByAuthor(page: number, count: number, getactive: boolean, author_id: string): Observable<IAllWorks>
+  {
+    return this.http.post(this.getWorksByAuthorUrl, {"page": page, "count": count, "getactive": getactive, "author_id": author_id})
     .map
     (
       data => data.json() as IAllWorks

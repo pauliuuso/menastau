@@ -4,12 +4,42 @@
     </div>
 
     <div class="col-12 sort">
-        <div class="sort-option">SORT BY:</div>
-        <div class="sort-option">KIND</div>
-        <div class="sort-option">ARTIST</div>
-        <div class="sort-option">YEAR</div>
-        <div class="sort-option">SIZE</div>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class="sort-option">SORT BY:</div>
+                <a routerLink="/gallery/all/1" class="sort-option">
+                    <div [ngClass]="{'text-underline': sorttype == 'all'}">ALL</div>
+                </a>
+                <a routerLink="/gallery/kind/{{categories[0].name}}/1" class="sort-option">
+                    <div [ngClass]="{'text-underline': sorttype == 'kind'}">KIND</div>
+                </a>
+                <a routerLink="/gallery/artist/{{authors[0].name + '-' + authors[0].surname}}/1" class="sort-option">
+                    <div [ngClass]="{'text-underline': sorttype == 'artist'}">ARTIST</div>
+                </a>
+                <div class="sort-option">YEAR</div>
+                <div class="sort-option">SIZE</div>
+            </div>
+        </div>
+
+        <div class="row animated fadeIn" *ngIf="sorttype == 'kind'">
+            <div class="col-12">
+                <a *ngFor="let category of categories" routerLink="/gallery/kind/{{category.name}}/1" class="sort-option-secondary">
+                    <div class="text-uppercase" [ngClass]="{'text-underline': sortvar1 == category.name}"><p>{{category.name}}</p></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row animated fadeIn" *ngIf="sorttype == 'artist'">
+            <div class="col-12">
+                <a *ngFor="let author of authors" routerLink="/gallery/artist/{{author.name + '-' + author.surname}}/1" class="sort-option-secondary">
+                    <div [ngClass]="{'text-underline': sortvar1 == author.name + '-' + author.surname}"><p>{{author.name + " " + author.surname}}</p></div>
+                </a>
+            </div>
+        </div>
+
     </div>
+
+
 
     <a *ngFor="let work of allWorks?.works" class="col-12 col-md-6 col-lg-4 col-xl-3" routerLink="/artwork/{{sharedService.DecodeAndRemoveWhite(work.title)}}/{{work.id}}">
         <app-art  

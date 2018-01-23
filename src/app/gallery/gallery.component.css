@@ -3,14 +3,14 @@
     text-align: center;
 }
 
-.sort
-{
-    min-height: 150px;
-}
-
 .gallery-title h1
 {
     font-size: 110px;
+}
+
+.sort
+{
+    min-height: 150px;
 }
 
 .sort-option:first-child
@@ -34,6 +34,19 @@
     min-width: 120px;
     border-right: 1px solid black;
     cursor: pointer;
+}
+
+.sort-option-secondary
+{
+    padding: 5px 20px 5px 0;
+    font-size: 22px;
+    float: left;
+    cursor: pointer;
+}
+
+.no-border
+{
+    border: none;
 }
 
 .art-pagination
@@ -85,4 +98,13 @@ a
 {
     color: black;
     text-decoration: none;
+}
+
+
+@media (max-width: 576px)
+{
+    .gallery-title h1
+    {
+        font-size: 70px;
+    }
 }

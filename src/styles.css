@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Marvel");
 @import url("https://fonts.googleapis.com/css?family=Lato");
 
+/* xs < 576; sm > 576; md > 768; lg > 992; xl > 1200 */
+
 html, body
 {
   padding: 0;
