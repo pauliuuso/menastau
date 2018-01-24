@@ -286,6 +286,7 @@ export class EditArtworkComponent implements OnInit, OnDestroy
     {
       this.uploading = true;
 
+      this.art.append("id", this.workId);
       this.art.append("title", encodeURI(this.title.value));
       this.art.append("category", this.category.value);
       this.art.append("authorid", this.author.value);

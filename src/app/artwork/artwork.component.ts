@@ -59,6 +59,7 @@ export class ArtworkComponent implements OnInit, OnDestroy
       data =>
       {
         this.work = data;
+        window.scrollTo(0, 0);
       },
       error =>
       {
