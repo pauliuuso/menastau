@@ -10,14 +10,13 @@
                 <a routerLink="/gallery/all/1" class="sort-option">
                     <div [ngClass]="{'text-underline': sorttype == 'all'}">ALL</div>
                 </a>
-                <a routerLink="/gallery/kind/{{categories[0].name}}/1" class="sort-option">
+                <a routerLink="/gallery/kind/all/1" class="sort-option">
                     <div [ngClass]="{'text-underline': sorttype == 'kind'}">KIND</div>
                 </a>
-                <a routerLink="/gallery/artist/{{authors[0].name + '-' + authors[0].surname}}/1" class="sort-option">
+                <a routerLink="/gallery/artist/all/1" class="sort-option">
                     <div [ngClass]="{'text-underline': sorttype == 'artist'}">ARTIST</div>
                 </a>
                 <div class="sort-option">YEAR</div>
-                <div class="sort-option">SIZE</div>
             </div>
         </div>
 

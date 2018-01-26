@@ -24,10 +24,20 @@ export class SharedService
     return decodeURI(text);
   }
 
+  public Encode(text: string)
+  {
+    return encodeURI(text);
+  }
+
   public DecodeAndRemoveWhite(text: string)
   {
     text = decodeURI(text);
     return text.replace(/\s+/g, '-').toLowerCase();
+  }
+
+  public ChangeWhiteSpaceToDashes(text: string)
+  {
+    return text.replace(/\s+/g, '-');
   }
 
   public GetCategories(): Observable<ICategory[]>

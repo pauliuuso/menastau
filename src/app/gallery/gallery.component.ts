@@ -13,8 +13,8 @@ import { Subject } from "rxjs/Subject";
 export class GalleryComponent implements OnInit, OnDestroy {
 
   private sorttype: string;
-  private sortvar1: string;
-  private sortvar2: string;
+  private sortvar1 = "";
+  private sortvar2 = "";
   public currentPage: number;
   private workCount = 12;
   public errorMessage: string;
@@ -48,7 +48,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         this.sortvar2 = params["sortvar2"];
       }
 
-      this.GetCategories();
+      this.GetArt();
 
     });
   }
@@ -59,44 +59,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  public GetCategories(): void
-  {
-    this.sharedService.GetCategories()
-    .takeUntil(this.unsubscribe)
-    .subscribe
-    (
-      data =>
-      {
-        this.categories = data;
-        this.GetAuthors();
-      },
-      error =>
-      {
-        this.categoriesError = error.message;
-      }
-    );
-  }
-
-  public GetAuthors(): void
-  {
-    this.sharedService.GetAuthors()
-    .takeUntil(this.unsubscribe)
-    .subscribe
-    (
-      data =>
-      {
-        this.authors = data;
-        this.GetArt();
-      },
-      error =>
-      {
-        this.authorsError = error.message;
-      }
-    );
-  }
-
   public GetArt()
   {
+    console.log("get art");
     if(this.sorttype === "all")
     {
       this.sharedService.GetAllWorks(this.currentPage, this.workCount, true).takeUntil(this.unsubscribe)
@@ -116,21 +81,91 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
     else if(this.sorttype === "kind")
     {
-      this.sharedService.GetWorksByCategory(this.currentPage, this.workCount, true, this.GetCategoryId(this.sortvar1)).takeUntil(this.unsubscribe)
-      .subscribe
-      (
-        data =>
-        {
-          this.allWorks = data;
-          this.totalWorks = Number(this.allWorks.work_count) || 0;
-          this.SetTotalPages(Math.ceil(this.totalWorks / this.workCount) + 1);
-        },
-        error =>
-        {
-          this.errorMessage = error.message;
-        }
-      );
+      this.GetWorksByCategory();
     }
+    else if(this.sorttype === "artist")
+    {
+      this.GetWorksByAuthor();
+    }
+  }
+
+  public GetWorksByCategory(): void
+  {
+    this.sharedService.GetCategories()
+    .takeUntil(this.unsubscribe)
+    .subscribe
+    (
+      data =>
+      {
+        
+        this.categories = data;
+
+        if(this.sortvar1 === "all")
+        {
+          this.sortvar1 = this.categories[0].name;
+        }
+
+        if(this.sortvar1 !== "")
+        {
+          this.sharedService.GetWorksByCategory(this.currentPage, this.workCount, true, this.GetCategoryId(this.sortvar1)).takeUntil(this.unsubscribe)
+          .subscribe
+          (
+            worksData =>
+            {
+              this.allWorks = worksData;
+              this.totalWorks = Number(this.allWorks.work_count) || 0;
+              this.SetTotalPages(Math.ceil(this.totalWorks / this.workCount) + 1);
+            },
+            error =>
+            {
+              this.errorMessage = error.message;
+            }
+          );
+        }
+
+      },
+      error =>
+      {
+        this.categoriesError = error.message;
+      }
+    );
+  }
+
+  public GetWorksByAuthor(): void
+  {
+    this.sharedService.GetAuthors()
+    .takeUntil(this.unsubscribe)
+    .subscribe
+    (
+
+      data =>
+      {
+        this.authors = data;
+
+        if(this.sortvar1 === "all")
+        {
+          this.sortvar1 = this.sharedService.Encode(this.authors[0].name) + "-" + this.sharedService.Encode(this.authors[0].surname);
+        }
+
+        if(this.sortvar1 !== "")
+        {
+          this.sharedService.GetWorksByAuthor(this.currentPage, this.workCount, true, this.GetAuthorId(this.sharedService.Decode(this.sortvar1))).takeUntil(this.unsubscribe)
+          .subscribe
+          (
+            worksData =>
+            {
+              this.allWorks = worksData;
+              this.totalWorks = Number(this.allWorks.work_count) || 0;
+              this.SetTotalPages(Math.ceil(this.totalWorks / this.workCount) + 1);
+            }
+          );
+        }
+      },
+      error =>
+      {
+        this.authorsError = error.message;
+      }
+    );
   }
 
   public GetCategoryId(name: string): string
@@ -140,6 +175,17 @@ export class GalleryComponent implements OnInit, OnDestroy {
       if(this.categories[a].name === name)
       {
         return this.categories[a].id;
+      }
+    }
+  }
+
+  public GetAuthorId(name: string): string
+  {
+    for(let a = 0; a < this.authors.length; a++)
+    {
+      if(this.authors[a].name + "-" + this.authors[a].surname === name)
+      {
+        return this.authors[a].id;
       }
     }
   }
